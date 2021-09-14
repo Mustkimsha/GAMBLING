@@ -1,0 +1,610 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="pm_admindbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ADMINUSERs">
+          <Key>
+            <PropertyRef Name="AUID" />
+          </Key>
+          <Property Name="AUID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="USERNAME" Type="nvarchar(max)" />
+          <Property Name="PASSWORD" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="AFTXNs">
+          <Key>
+            <PropertyRef Name="TXNID" />
+          </Key>
+          <Property Name="TXNID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AUID" Type="int" />
+          <Property Name="FUID" Type="int" />
+          <Property Name="DEBIT" Type="nvarchar(max)" />
+          <Property Name="CREDIT" Type="nvarchar(max)" />
+          <Property Name="TXNDATE" Type="nvarchar(max)" />
+          <Property Name="TXNTIME" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="FRENCHISEBALs">
+          <Key>
+            <PropertyRef Name="FWID" />
+          </Key>
+          <Property Name="FWID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BALANCE" Type="nvarchar(max)" />
+          <Property Name="FUID" Type="int" />
+        </EntityType>
+        <EntityType Name="FRENCHISEREPORTs">
+          <Key>
+            <PropertyRef Name="FRID" />
+          </Key>
+          <Property Name="FRID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FUID" Type="int" />
+          <Property Name="DATE" Type="nvarchar(max)" />
+          <Property Name="OB" Type="nvarchar(max)" />
+          <Property Name="AR" Type="nvarchar(max)" />
+          <Property Name="AP" Type="nvarchar(max)" />
+          <Property Name="AW" Type="nvarchar(max)" />
+          <Property Name="CB" Type="nvarchar(max)" />
+          <Property Name="OCPL" Type="nvarchar(max)" />
+          <Property Name="MCCB" Type="nvarchar(max)" />
+          <Property Name="MCC" Type="nvarchar(max)" />
+          <Property Name="MCD" Type="nvarchar(max)" />
+          <Property Name="MP" Type="nvarchar(max)" />
+          <Property Name="MW" Type="nvarchar(max)" />
+          <Property Name="MCPL" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="FRENCHISEs">
+          <Key>
+            <PropertyRef Name="FUID" />
+          </Key>
+          <Property Name="FUID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AUID" Type="int" />
+          <Property Name="FUNAME" Type="nvarchar(max)" />
+          <Property Name="USERNAME" Type="nvarchar(max)" />
+          <Property Name="PASSWORD" Type="nvarchar(max)" />
+          <Property Name="CONTACTNO" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="FUTXNs">
+          <Key>
+            <PropertyRef Name="TXNID" />
+          </Key>
+          <Property Name="TXNID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FUID" Type="int" />
+          <Property Name="UID" Type="int" />
+          <Property Name="DEBIT" Type="nvarchar(max)" />
+          <Property Name="CREDIT" Type="nvarchar(max)" />
+          <Property Name="TXNDATE" Type="nvarchar(max)" />
+          <Property Name="TXNTIME" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="GAMEPOOLs">
+          <Key>
+            <PropertyRef Name="GPID" />
+          </Key>
+          <Property Name="GPID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GSID" Type="int" />
+          <Property Name="GSTIME" Type="nvarchar(max)" />
+          <Property Name="GSENDTIME" Type="nvarchar(max)" />
+          <Property Name="GPDATE" Type="nvarchar(max)" />
+          <Property Name="GPRESULT" Type="nvarchar(max)" />
+          <Property Name="YID" Type="int" />
+          <Property Name="JACKPOT" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="GAMESLOTs">
+          <Key>
+            <PropertyRef Name="GSID" />
+          </Key>
+          <Property Name="GSID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GSTIME" Type="nvarchar(max)" />
+          <Property Name="GSENDTIME" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Recipts">
+          <Key>
+            <PropertyRef Name="RID" />
+          </Key>
+          <Property Name="RID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FUID" Type="int" />
+          <Property Name="UUID" Type="int" />
+          <Property Name="RTYPE" Type="nvarchar(max)" />
+          <Property Name="Y1" Type="nvarchar(max)" />
+          <Property Name="Y2" Type="nvarchar(max)" />
+          <Property Name="Y3" Type="nvarchar(max)" />
+          <Property Name="Y4" Type="nvarchar(max)" />
+          <Property Name="Y5" Type="nvarchar(max)" />
+          <Property Name="Y6" Type="nvarchar(max)" />
+          <Property Name="Y7" Type="nvarchar(max)" />
+          <Property Name="Y8" Type="nvarchar(max)" />
+          <Property Name="Y9" Type="nvarchar(max)" />
+          <Property Name="Y10" Type="nvarchar(max)" />
+          <Property Name="GSID" Type="nvarchar(max)" />
+          <Property Name="GSTIME" Type="nvarchar(max)" />
+          <Property Name="GSDATE" Type="nvarchar(max)" />
+          <Property Name="RGTIME" Type="nvarchar(max)" />
+          <Property Name="RVAL" Type="nvarchar(max)" />
+          <Property Name="RWINVAL" Type="nvarchar(max)" />
+          <Property Name="RSTATUS" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="TOTALSALEs">
+          <Key>
+            <PropertyRef Name="TSID" />
+          </Key>
+          <Property Name="TSID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GSID" Type="int" />
+          <Property Name="GPID" Type="int" />
+          <Property Name="GPSTIME" Type="nvarchar(max)" />
+          <Property Name="GPSENDTIME" Type="nvarchar(max)" />
+          <Property Name="GPDATE" Type="nvarchar(max)" />
+          <Property Name="Y1" Type="nvarchar(max)" />
+          <Property Name="Y2" Type="nvarchar(max)" />
+          <Property Name="Y3" Type="nvarchar(max)" />
+          <Property Name="Y4" Type="nvarchar(max)" />
+          <Property Name="Y5" Type="nvarchar(max)" />
+          <Property Name="Y6" Type="nvarchar(max)" />
+          <Property Name="Y7" Type="nvarchar(max)" />
+          <Property Name="Y8" Type="nvarchar(max)" />
+          <Property Name="Y9" Type="nvarchar(max)" />
+          <Property Name="Y10" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="USERBALs">
+          <Key>
+            <PropertyRef Name="UWID" />
+          </Key>
+          <Property Name="UWID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BALANCE" Type="nvarchar(max)" />
+          <Property Name="UID" Type="int" />
+          <Property Name="FUID" Type="int" />
+        </EntityType>
+        <EntityType Name="USERTBLs">
+          <Key>
+            <PropertyRef Name="UID" />
+          </Key>
+          <Property Name="UID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FUID" Type="nvarchar(max)" />
+          <Property Name="UUNAME" Type="nvarchar(max)" />
+          <Property Name="USERNAME" Type="nvarchar(max)" />
+          <Property Name="PASSWORD" Type="nvarchar(max)" />
+          <Property Name="CONTACTNO" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="YANTRAs">
+          <Key>
+            <PropertyRef Name="YID" />
+          </Key>
+          <Property Name="YID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="YANTRANAME" Type="nvarchar(max)" />
+          <Property Name="YANTRASELLPRICE" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="YANTRAIMAGEURL" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityContainer Name="pm_admindbModelStoreContainer">
+          <EntitySet Name="ADMINUSERs" EntityType="Self.ADMINUSERs" Schema="pm_adminuser" store:Type="Tables" />
+          <EntitySet Name="AFTXNs" EntityType="Self.AFTXNs" Schema="pm_adminuser" store:Type="Tables" />
+          <EntitySet Name="FRENCHISEBALs" EntityType="Self.FRENCHISEBALs" Schema="pm_adminuser" store:Type="Tables" />
+          <EntitySet Name="FRENCHISEREPORTs" EntityType="Self.FRENCHISEREPORTs" Schema="pm_adminuser" store:Type="Tables" />
+          <EntitySet Name="FRENCHISEs" EntityType="Self.FRENCHISEs" Schema="pm_adminuser" store:Type="Tables" />
+          <EntitySet Name="FUTXNs" EntityType="Self.FUTXNs" Schema="pm_adminuser" store:Type="Tables" />
+          <EntitySet Name="GAMEPOOLs" EntityType="Self.GAMEPOOLs" Schema="pm_adminuser" store:Type="Tables" />
+          <EntitySet Name="GAMESLOTs" EntityType="Self.GAMESLOTs" Schema="pm_adminuser" store:Type="Tables" />
+          <EntitySet Name="Recipts" EntityType="Self.Recipts" Schema="pm_adminuser" store:Type="Tables" />
+          <EntitySet Name="TOTALSALEs" EntityType="Self.TOTALSALEs" Schema="pm_adminuser" store:Type="Tables" />
+          <EntitySet Name="USERBALs" EntityType="Self.USERBALs" Schema="pm_adminuser" store:Type="Tables" />
+          <EntitySet Name="USERTBLs" EntityType="Self.USERTBLs" Schema="pm_adminuser" store:Type="Tables" />
+          <EntitySet Name="YANTRAs" EntityType="Self.YANTRAs" Schema="pm_adminuser" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="pm_admindbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ADMINUSER">
+          <Key>
+            <PropertyRef Name="AUID" />
+          </Key>
+          <Property Name="AUID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="USERNAME" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PASSWORD" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="pm_admindbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ADMINUSERs" EntityType="Self.ADMINUSER" />
+          <EntitySet Name="AFTXNs" EntityType="pm_admindbModel.AFTXN" />
+          <EntitySet Name="ADMINUSER1" EntityType="pm_admindbModel.ADMINUSER1" />
+          <EntitySet Name="AFTXN1" EntityType="pm_admindbModel.AFTXN1" />
+          <EntitySet Name="FRENCHISEBALs" EntityType="pm_admindbModel.FRENCHISEBAL" />
+          <EntitySet Name="FRENCHISEs" EntityType="pm_admindbModel.FRENCHIS" />
+          <EntitySet Name="FUTXNs" EntityType="pm_admindbModel.FUTXN" />
+          <EntitySet Name="GAMEPOOLs" EntityType="pm_admindbModel.GAMEPOOL" />
+          <EntitySet Name="GAMESLOTs" EntityType="pm_admindbModel.GAMESLOT" />
+          <EntitySet Name="Recipts" EntityType="pm_admindbModel.Recipt" />
+          <EntitySet Name="FRENCHISEREPORTs" EntityType="pm_admindbModel.FRENCHISEREPORT" />
+          <EntitySet Name="TOTALSALEs" EntityType="pm_admindbModel.TOTALSALE" />
+          <EntitySet Name="USERBALs" EntityType="pm_admindbModel.USERBAL" />
+          <EntitySet Name="USERTBLs" EntityType="pm_admindbModel.USERTBL" />
+          <EntitySet Name="YANTRAs" EntityType="pm_admindbModel.YANTRA" />
+        </EntityContainer>
+        <EntityType Name="AFTXN">
+          <Key>
+            <PropertyRef Name="TXNID" />
+          </Key>
+          <Property Name="TXNID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AUID" Type="Int64" />
+          <Property Name="FUID" Type="Int64" />
+          <Property Name="DEBIT" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CREDIT" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TXNDATE" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TXNTIME" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ADMINUSER1">
+          <Key>
+            <PropertyRef Name="AUID" />
+          </Key>
+          <Property Name="AUID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="USERNAME" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PASSWORD" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="AFTXN1">
+          <Key>
+            <PropertyRef Name="TXNID" />
+          </Key>
+          <Property Name="TXNID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AUID" Type="Int32" />
+          <Property Name="FUID" Type="Int32" />
+          <Property Name="DEBIT" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CREDIT" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TXNDATE" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TXNTIME" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="FRENCHISEBAL">
+          <Key>
+            <PropertyRef Name="FWID" />
+          </Key>
+          <Property Name="FWID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BALANCE" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FUID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="FRENCHIS">
+          <Key>
+            <PropertyRef Name="FUID" />
+          </Key>
+          <Property Name="FUID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AUID" Type="Int32" />
+          <Property Name="FUNAME" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="USERNAME" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PASSWORD" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CONTACTNO" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="FUTXN">
+          <Key>
+            <PropertyRef Name="TXNID" />
+          </Key>
+          <Property Name="TXNID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FUID" Type="Int32" />
+          <Property Name="UID" Type="Int32" />
+          <Property Name="DEBIT" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CREDIT" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TXNDATE" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TXNTIME" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="GAMEPOOL">
+          <Key>
+            <PropertyRef Name="GPID" />
+          </Key>
+          <Property Name="GPID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GSID" Type="Int32" />
+          <Property Name="GSTIME" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="GSENDTIME" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="GPDATE" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="GPRESULT" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="YID" Type="Int32" />
+          <Property Name="JACKPOT" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="GAMESLOT">
+          <Key>
+            <PropertyRef Name="GSID" />
+          </Key>
+          <Property Name="GSID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GSTIME" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="GSENDTIME" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Recipt">
+          <Key>
+            <PropertyRef Name="RID" />
+          </Key>
+          <Property Name="RID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FUID" Type="Int32" />
+          <Property Name="UUID" Type="Int32" />
+          <Property Name="RTYPE" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Y1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Y2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Y3" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Y4" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Y5" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Y6" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Y7" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Y8" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Y9" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Y10" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="GSID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="GSTIME" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="GSDATE" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="RGTIME" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="RVAL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="RWINVAL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="RSTATUS" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="FRENCHISEREPORT">
+          <Key>
+            <PropertyRef Name="FRID" />
+          </Key>
+          <Property Name="FRID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FUID" Type="Int32" />
+          <Property Name="DATE" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OB" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AR" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AP" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AW" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CB" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OCPL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MCCB" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MCC" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MCD" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MP" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MW" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MCPL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="TOTALSALE">
+          <Key>
+            <PropertyRef Name="TSID" />
+          </Key>
+          <Property Name="TSID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GSID" Type="Int32" />
+          <Property Name="GPID" Type="Int32" />
+          <Property Name="GPSTIME" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="GPSENDTIME" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="GPDATE" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Y1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Y2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Y3" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Y4" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Y5" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Y6" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Y7" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Y8" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Y9" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Y10" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="USERBAL">
+          <Key>
+            <PropertyRef Name="UWID" />
+          </Key>
+          <Property Name="UWID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BALANCE" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UID" Type="Int32" />
+          <Property Name="FUID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="USERTBL">
+          <Key>
+            <PropertyRef Name="UID" />
+          </Key>
+          <Property Name="UID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FUID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UUNAME" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="USERNAME" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PASSWORD" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CONTACTNO" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="YANTRA">
+          <Key>
+            <PropertyRef Name="YID" />
+          </Key>
+          <Property Name="YID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="YANTRANAME" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="YANTRASELLPRICE" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="YANTRAIMAGEURL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="pm_admindbModelStoreContainer" CdmEntityContainer="pm_admindbEntities">
+          <EntitySetMapping Name="ADMINUSER1">
+            <EntityTypeMapping TypeName="pm_admindbModel.ADMINUSER1">
+              <MappingFragment StoreEntitySet="ADMINUSERs">
+                <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+                <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
+                <ScalarProperty Name="AUID" ColumnName="AUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AFTXN1">
+            <EntityTypeMapping TypeName="pm_admindbModel.AFTXN1">
+              <MappingFragment StoreEntitySet="AFTXNs">
+                <ScalarProperty Name="TXNTIME" ColumnName="TXNTIME" />
+                <ScalarProperty Name="TXNDATE" ColumnName="TXNDATE" />
+                <ScalarProperty Name="CREDIT" ColumnName="CREDIT" />
+                <ScalarProperty Name="DEBIT" ColumnName="DEBIT" />
+                <ScalarProperty Name="FUID" ColumnName="FUID" />
+                <ScalarProperty Name="AUID" ColumnName="AUID" />
+                <ScalarProperty Name="TXNID" ColumnName="TXNID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FRENCHISEBALs">
+            <EntityTypeMapping TypeName="pm_admindbModel.FRENCHISEBAL">
+              <MappingFragment StoreEntitySet="FRENCHISEBALs">
+                <ScalarProperty Name="FUID" ColumnName="FUID" />
+                <ScalarProperty Name="BALANCE" ColumnName="BALANCE" />
+                <ScalarProperty Name="FWID" ColumnName="FWID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FRENCHISEs">
+            <EntityTypeMapping TypeName="pm_admindbModel.FRENCHIS">
+              <MappingFragment StoreEntitySet="FRENCHISEs">
+                <ScalarProperty Name="CONTACTNO" ColumnName="CONTACTNO" />
+                <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+                <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
+                <ScalarProperty Name="FUNAME" ColumnName="FUNAME" />
+                <ScalarProperty Name="AUID" ColumnName="AUID" />
+                <ScalarProperty Name="FUID" ColumnName="FUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FUTXNs">
+            <EntityTypeMapping TypeName="pm_admindbModel.FUTXN">
+              <MappingFragment StoreEntitySet="FUTXNs">
+                <ScalarProperty Name="TXNTIME" ColumnName="TXNTIME" />
+                <ScalarProperty Name="TXNDATE" ColumnName="TXNDATE" />
+                <ScalarProperty Name="CREDIT" ColumnName="CREDIT" />
+                <ScalarProperty Name="DEBIT" ColumnName="DEBIT" />
+                <ScalarProperty Name="UID" ColumnName="UID" />
+                <ScalarProperty Name="FUID" ColumnName="FUID" />
+                <ScalarProperty Name="TXNID" ColumnName="TXNID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GAMEPOOLs">
+            <EntityTypeMapping TypeName="pm_admindbModel.GAMEPOOL">
+              <MappingFragment StoreEntitySet="GAMEPOOLs">
+                <ScalarProperty Name="JACKPOT" ColumnName="JACKPOT" />
+                <ScalarProperty Name="YID" ColumnName="YID" />
+                <ScalarProperty Name="GPRESULT" ColumnName="GPRESULT" />
+                <ScalarProperty Name="GPDATE" ColumnName="GPDATE" />
+                <ScalarProperty Name="GSENDTIME" ColumnName="GSENDTIME" />
+                <ScalarProperty Name="GSTIME" ColumnName="GSTIME" />
+                <ScalarProperty Name="GSID" ColumnName="GSID" />
+                <ScalarProperty Name="GPID" ColumnName="GPID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GAMESLOTs">
+            <EntityTypeMapping TypeName="pm_admindbModel.GAMESLOT">
+              <MappingFragment StoreEntitySet="GAMESLOTs">
+                <ScalarProperty Name="GSENDTIME" ColumnName="GSENDTIME" />
+                <ScalarProperty Name="GSTIME" ColumnName="GSTIME" />
+                <ScalarProperty Name="GSID" ColumnName="GSID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Recipts">
+            <EntityTypeMapping TypeName="pm_admindbModel.Recipt">
+              <MappingFragment StoreEntitySet="Recipts">
+                <ScalarProperty Name="RSTATUS" ColumnName="RSTATUS" />
+                <ScalarProperty Name="RWINVAL" ColumnName="RWINVAL" />
+                <ScalarProperty Name="RVAL" ColumnName="RVAL" />
+                <ScalarProperty Name="RGTIME" ColumnName="RGTIME" />
+                <ScalarProperty Name="GSDATE" ColumnName="GSDATE" />
+                <ScalarProperty Name="GSTIME" ColumnName="GSTIME" />
+                <ScalarProperty Name="GSID" ColumnName="GSID" />
+                <ScalarProperty Name="Y10" ColumnName="Y10" />
+                <ScalarProperty Name="Y9" ColumnName="Y9" />
+                <ScalarProperty Name="Y8" ColumnName="Y8" />
+                <ScalarProperty Name="Y7" ColumnName="Y7" />
+                <ScalarProperty Name="Y6" ColumnName="Y6" />
+                <ScalarProperty Name="Y5" ColumnName="Y5" />
+                <ScalarProperty Name="Y4" ColumnName="Y4" />
+                <ScalarProperty Name="Y3" ColumnName="Y3" />
+                <ScalarProperty Name="Y2" ColumnName="Y2" />
+                <ScalarProperty Name="Y1" ColumnName="Y1" />
+                <ScalarProperty Name="RTYPE" ColumnName="RTYPE" />
+                <ScalarProperty Name="UUID" ColumnName="UUID" />
+                <ScalarProperty Name="FUID" ColumnName="FUID" />
+                <ScalarProperty Name="RID" ColumnName="RID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FRENCHISEREPORTs">
+            <EntityTypeMapping TypeName="pm_admindbModel.FRENCHISEREPORT">
+              <MappingFragment StoreEntitySet="FRENCHISEREPORTs">
+                <ScalarProperty Name="MCPL" ColumnName="MCPL" />
+                <ScalarProperty Name="MW" ColumnName="MW" />
+                <ScalarProperty Name="MP" ColumnName="MP" />
+                <ScalarProperty Name="MCD" ColumnName="MCD" />
+                <ScalarProperty Name="MCC" ColumnName="MCC" />
+                <ScalarProperty Name="MCCB" ColumnName="MCCB" />
+                <ScalarProperty Name="OCPL" ColumnName="OCPL" />
+                <ScalarProperty Name="CB" ColumnName="CB" />
+                <ScalarProperty Name="AW" ColumnName="AW" />
+                <ScalarProperty Name="AP" ColumnName="AP" />
+                <ScalarProperty Name="AR" ColumnName="AR" />
+                <ScalarProperty Name="OB" ColumnName="OB" />
+                <ScalarProperty Name="DATE" ColumnName="DATE" />
+                <ScalarProperty Name="FUID" ColumnName="FUID" />
+                <ScalarProperty Name="FRID" ColumnName="FRID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TOTALSALEs">
+            <EntityTypeMapping TypeName="pm_admindbModel.TOTALSALE">
+              <MappingFragment StoreEntitySet="TOTALSALEs">
+                <ScalarProperty Name="Y10" ColumnName="Y10" />
+                <ScalarProperty Name="Y9" ColumnName="Y9" />
+                <ScalarProperty Name="Y8" ColumnName="Y8" />
+                <ScalarProperty Name="Y7" ColumnName="Y7" />
+                <ScalarProperty Name="Y6" ColumnName="Y6" />
+                <ScalarProperty Name="Y5" ColumnName="Y5" />
+                <ScalarProperty Name="Y4" ColumnName="Y4" />
+                <ScalarProperty Name="Y3" ColumnName="Y3" />
+                <ScalarProperty Name="Y2" ColumnName="Y2" />
+                <ScalarProperty Name="Y1" ColumnName="Y1" />
+                <ScalarProperty Name="GPDATE" ColumnName="GPDATE" />
+                <ScalarProperty Name="GPSENDTIME" ColumnName="GPSENDTIME" />
+                <ScalarProperty Name="GPSTIME" ColumnName="GPSTIME" />
+                <ScalarProperty Name="GPID" ColumnName="GPID" />
+                <ScalarProperty Name="GSID" ColumnName="GSID" />
+                <ScalarProperty Name="TSID" ColumnName="TSID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USERBALs">
+            <EntityTypeMapping TypeName="pm_admindbModel.USERBAL">
+              <MappingFragment StoreEntitySet="USERBALs">
+                <ScalarProperty Name="FUID" ColumnName="FUID" />
+                <ScalarProperty Name="UID" ColumnName="UID" />
+                <ScalarProperty Name="BALANCE" ColumnName="BALANCE" />
+                <ScalarProperty Name="UWID" ColumnName="UWID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USERTBLs">
+            <EntityTypeMapping TypeName="pm_admindbModel.USERTBL">
+              <MappingFragment StoreEntitySet="USERTBLs">
+                <ScalarProperty Name="CONTACTNO" ColumnName="CONTACTNO" />
+                <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+                <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
+                <ScalarProperty Name="UUNAME" ColumnName="UUNAME" />
+                <ScalarProperty Name="FUID" ColumnName="FUID" />
+                <ScalarProperty Name="UID" ColumnName="UID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="YANTRAs">
+            <EntityTypeMapping TypeName="pm_admindbModel.YANTRA">
+              <MappingFragment StoreEntitySet="YANTRAs">
+                <ScalarProperty Name="YANTRAIMAGEURL" ColumnName="YANTRAIMAGEURL" />
+                <ScalarProperty Name="YANTRASELLPRICE" ColumnName="YANTRASELLPRICE" />
+                <ScalarProperty Name="YANTRANAME" ColumnName="YANTRANAME" />
+                <ScalarProperty Name="YID" ColumnName="YID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

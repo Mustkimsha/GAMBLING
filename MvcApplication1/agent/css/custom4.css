@@ -1,0 +1,91 @@
+/**************** 31-10-2014 *******************/
+
+/*
+font-family: 'Open Sans', sans-serif;
+Light 300
+Normal 400
+Semi-Bold 600
+Bold 700
+Extra-Bold 800
+*/
+
+body{ padding:0; margin:0; font-size:12px; color:#000; font-family: 'Open Sans', sans-serif; background:#808080;}
+a {outline:none !important; text-decoration:none;}
+a:hover, a:focus { text-decoration:none;}
+img { border:none; vertical-align:middle; }
+a, button{}	
+h1, h2, h3, h4, h5, h6{ outline:none;outline:none; font-family: 'Open Sans', sans-serif;}
+
+.agent_container{ width:100%; max-width: 1000px; padding:0; margin:0 auto;}
+.agent_title{ width:100%; float:left; padding:0; margin:10px 0; text-align:center;}
+.agent_form{ width:100%; float:left; padding:7px 0; margin:0; border-top:1px solid #fff; border-bottom:1px solid #fff;}
+.agent_form label{ float:left; padding:0; margin:0 5px 0 10px; line-height:28px; font-size:14px; color:#000;}
+.agent_input{ width:221px; height:28px; float:left; padding:0 5px; margin:0 0px 0 0; font-size:24px; color:#000; font-family:Arial, Helvetica, sans-serif; text-align:center; background:#fff; border:1px solid #000;}
+.agent_id{ width:230px; height:28px; float:left; padding:5px 5px; margin:0 15px 0 0; line-height:28px; font-size:13px; color:#000; font-family:Arial, Helvetica, sans-serif; background:#fff; border:1px solid #000;}
+.search_btn{ height:30px; float:left; padding:0 15px; margin:0 20px 0 0; line-height:28px; cursor:pointer; font-family:Arial, Helvetica, sans-serif; background:skyblue; border:1px solid #000; font-size:16px; color:#000;font-weight: bold;}
+.agent_digit{ float:left; padding:0; margin:0; font-size:20px; color:#fffdea; font-weight:bold;}
+
+.agent_table{ width:100%; float:left; padding:0; margin:10px 0 0 0;}
+.agent_table table{ border:none; background:#9da29e;}
+.agent_table table th{ padding:12px 7px; font-size:14px; color:#000;}
+.agent_table table td{ padding:10px 7px; background:#fff; font-size:14px; font-weight:bold;text-align: center;color: red;}
+
+.detail_1{ color:#FF0000; font-weight:bold;}
+.detail_2{ color:#1c7400;}
+.detail_3{ color:#0009ce;}
+
+.login_bg{ background:#fff;}
+
+.logo_icon{ width:100%; float:left; padding:0; margin:30px 0 0 0; text-align:center;}
+.login_title{ width:100%; float:left; padding:0; margin:0 0 30px 0; text-align:center; font-size:35px; color:#CC3300; }
+.login_sec_main{ width:350px; margin:0 auto;}
+.login_sec{ width:350px; float:left; padding:0; margin:0; background:#000; border-radius:6px; border:2px solid #4f4f4f;}
+.login_sec ul{ width:310px; float:left; padding:20px; margin:0;}
+.login_sec ul li{ width:100%; /*float:left;*/ padding:0; margin:0 0 15px 0; list-style:none; text-align: center;}
+.login_sec ul li label{ color: #FFFFFF;
+    float: left;
+    font-size: 14px;
+    font-weight: bold;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 10px;
+    padding: 0;
+    width: 100%;}
+.login_sec ul li input[type="text"]{ width:278px; height:33px; float:left; padding:0 15px; margin:0; border:1px solid #4f4f4f; border-radius:8px;}
+.login_sec ul li input[type="button"]{ padding:7px 20px; margin:10px 0 0 110px; cursor:pointer; text-align:center; font-size:14px; text-transform:uppercase; color:#000; font-weight:bold; border:none; background:#FFFF00; border-radius:8px;}
+.login_sec ul li input[type="submit"]{ padding:7px 20px; margin:10px 0 0 108px; cursor:pointer; text-align:center; font-size:14px; text-transform:uppercase; color:#000; font-weight:bold; border:none; background:#FFFF00; border-radius:8px;}
+.login_sec ul li input[type="password"]{ width:278px; height:33px; float:left; padding:0 15px; margin:0; border:1px solid #4f4f4f; border-radius:8px;}
+
+
+.agent_deal{ width:100%; float:left; padding:10px 0 7px 0; margin:0; border-top:1px solid #fff; border-bottom:1px solid #fff;}
+.agent_deal_1{ width:350px; float:left; padding:0; margin:0 0 0 10px;}
+.agent_deal ul{ width:100%; float:left; padding:0; margin:0;}
+.agent_deal ul li{ width:100%; float:left; padding:0; margin:0 0 4px 0; list-style:none;}
+.agent_deal ul li label{ width:100px; float:left; padding:0; margin:0 10px 0 0; line-height:33px; font-size:14px; color:#000; font-weight:bold; text-align:right;}
+.agent_deal ul li input[type="text"]{ border-radius:0; width:100%; height:33px; float:left; padding:0 2%; margin:0; border:none; background:#F0F0F0;font-size:22px;font-weight: bold;}
+.agent_deal ul li select{ width:100%; height:34px; float:left; padding:5px; margin:0; border:none; background:#F0F0F0;font-size:16px;font-weight: bold;text-align: center;}
+.agent_right{ overflow:hidden;}
+.agent_deal_2{ width:430px; float:left; padding:0; margin:0 0 0 10px;}
+
+.add_button{ width:110px; float:left; padding:0; margin:0 0 0 60px;}
+.add_button input[type="button"]{ width:100%; height:30px; float:left; cursor:pointer; padding:0; margin:0 0 3px 0; border:1px solid #000; font-size:13px; color:#000; background:#f0f0f0;font-weight: bold;}
+.add_button input[type="submit"]{ width:100%; height:30px; float:left; cursor:pointer; padding:0; margin:0 0 3px 0; border:1px solid #000; font-size:13px; color:#000; background:#f0f0f0;font-weight: bold;}
+
+.age_blo{ width:830px; float:left; padding:0; margin:0;}
+.agent_deal_3{ width:450px; float:left; padding:0; margin:0 0 0 10px;}
+.agent_deal_4{ width:350px; float:left; padding:0; margin:0 0 0 10px;}
+
+.agent_detail_5{ width:820px; float:left; padding:0; margin:10px 0 0 0;}
+.search_btn1{ height:30px; float:right; padding:0 15px; margin:0 20px 0 0; line-height:28px; cursor:pointer; font-family:Arial, Helvetica, sans-serif; background:skyblue; border:1px solid #000; font-size:16px; color:#000;font-weight: bold;}
+
+
+.agent_deal ul li label.error{
+    color: #ff0000;
+    width: 200px;
+    text-align: left;
+}
+
+.agent_container input { font-size: 14px !important;}
+.agent_container input { font-size: 14px !important;}
+select.agent_input, .agent_deal_1 select, .agent_deal_1 input[type='text']{ font-size: 14px !important; text-align: left !important; }
+select.agent_input { padding-top: 4px; font-size: 14px !important; text-align: left !important;  }

@@ -1,0 +1,2208 @@
+﻿@{
+    Layout = null;
+    string str = Session["USERNAME"].ToString();
+    str = str.Substring(2);
+    ViewBag.unamess = "SK" + str;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head id="hdtg">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>S. K. Online Marketing</title>
+    <link href="~/agent/css/program/style.css" rel="stylesheet" />
+    <link href="~/agent/css/program/style.css" rel="stylesheet">
+    <link href="~/agent/css/program/style2.css" rel="stylesheet">
+    <link href="~/agent/css/program/main_style.css" rel="stylesheet">
+    <link href="~/agent/css/program/style3.css" rel="stylesheet">
+    <link href="~/agent/css/program/style4.css" rel="stylesheet">
+    <link href="~/agent/css/program/style5.css" media="screen" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" />
+    <link href="~/agent/css/program/internet.css" rel="stylesheet" type="text/css">
+    <script src="~/dist/JsBarcode.all.js"></script>
+    <link href="~/agent/css/StyleSheet1.css" rel="stylesheet" />
+	<style>
+		#saveButton.modal.show{
+			display: block !important;
+		}
+        #stockDetails.modal.show{
+			display: block !important;
+		}
+        input#anysearch-input:-webkit-autofill,#anysearch-input:-webkit-autofill:focus,#anysearch-input:-internal-autofill-selected{
+            -webkit-text-fill-color:brown;
+        }
+        .triple-modal{
+            display: none;
+        }
+        .jodi-modal{
+            display: none;
+        }
+        .select-program-type{
+            display: none;
+        }
+
+	</style>
+</head>
+
+
+<body id="receipt_no" data="">
+    <div class="agent-wrapper">
+        <div class="container">
+            <div id="wrapper">
+                <div class="container_inn">
+                    <header>
+                        <div class="top_part">
+                            <div class="top_no">
+                                <input type="hidden" class="agent_type" value="agent_2">
+                                <input type="hidden" id="cutAmount" value="11">
+                                <input type="hidden" id="jodiCutAmount" value="11">
+                                <input type="hidden" id="tripleCutAmount" value="11">
+                                <input type="hidden" id="isJodiBet" value="false">
+                                <input type="hidden" id="isTripleBet" value="false">
+                                <input type="hidden" id="isProgramBet" value="false">
+                                <input type="hidden" id="timeNow" value="2021-02-18 19:26:23">
+                                <input type="hidden" id="drawTimeBegin" value="">
+                                <input type="hidden" id="drawTimeEnd" value="2021-02-18 23:00:00">
+                                <input type="hidden" id="set_limit" value="5">
+                                <input type="hidden" id="jodi_temp_total" value="0">
+                                <input type="hidden" id="triple_temp_total" value="0">
+
+                                <span class="pull-left">@ViewBag.unamess</span>
+                                <span id="fretotalbal" class="pull-right"></span>
+                            </div>
+                            <div class="game_time headerTime">
+                                <ul>
+                                    <li>
+                                    <input hidden class="clock" id="clock" /></li>
+                                    <li>
+                                    <input hidden class="clock" id="Datetxtli" /></li>
+                                    <li id="gsendtime" style="color:black"></li>
+                                    <li>&nbsp&nbsp</li>
+                                    <li id="gstimer" style="color:black"></li>
+                                    <li>&nbsp&nbsp</li>
+                                    <li id="datetoday" style="color:black"></li>
+                                    <li>&nbsp&nbsp</li>
+                                    <li id="timetoday" style="color:black"></li>
+                                </ul>
+                                <script>
+                                    function clock() {// We create a new Date object and assign it to a variable called "time".
+                                        var timestamps;
+                                        var time;
+                                        var yesterday;
+                                        $.get("https://vip.timezonedb.com/v2.1/get-time-zone?key=BSWYV6J8NXWD&format=json&by=zone&zone=Asia/Kolkata")
+                                    .done(function (json) {
+                                        console.log(json);
+                                        timestamps = json.formatted;
+                                        timeampm = new Date(timestamps);
+
+                                        time = new Date(timestamps),
+                                        time2 = new Date(timestamps),
+                                        time3 = new Date(timestamps),
+                                        yesterday=new Date(timestamps),
+                                        // Access the "getHours" method on the Date object with the dot accessor.
+                                            hours = time.getHours(),
+
+                                        // Access the "getMinutes" method with the dot accessor.
+                                            minutes = time.getMinutes(),
+
+
+                                            seconds = time.getSeconds();
+
+                                        
+
+                                        var ampm = hours >= 12 ? 'PM' : 'AM';
+                                        hours = hours % 12;
+                                        hours = hours ? hours : 12; // the hour '0' should be '12'
+                                        var temptime = harold(hours) + ":" + harold(minutes) + ":" + harold(seconds) + " " + ampm;
+                                        document.getElementById("clock").value = harold(hours) + ":" + harold(minutes) + ":" + harold(seconds) + " " + ampm;
+
+                                        var dt = time;
+                                        var mm = dt.getMonth() + 1;
+                                        mm=harold(mm);
+                                        var dd = dt.getDate();
+                                        var yyyy = dt.getFullYear();
+                                        var format = harold(dd) + '-' + mm + '-' + yyyy;
+
+                                        
+                                        yesterday.setDate(yesterday.getDate()-1);
+                                        var Datetxt = time.toLocaleDateString();
+                                        var YesDatetxt = yesterday.toLocaleDateString();
+                                        document.getElementById("Datetxtli").value=Datetxt;
+                                        document.getElementById("datetoday").innerHTML=format;
+                                        document.getElementById("timetoday").innerHTML=temptime;
+                                        document.getElementById("datetoday2").innerHTML=format;
+                                        document.getElementById("timetoday2").innerHTML=temptime;
+                                        
+                                        function harold(standIn) {
+                                            if (standIn < 10) {
+                                                standIn = '0' + standIn
+                                            }
+                                            return standIn;
+                                        }
+                                        $.post("/FRENCHISEdesk/programtime", { todaytimenow: temptime}, function (json) {
+                                            document.getElementById("gsendtime").innerHTML=json.GSENDTIME;
+                                            document.getElementById("gstimer").innerHTML=json.GSTIME;
+                                            document.getElementById("fretotalbal").innerHTML=json.GSID;
+
+                                            document.getElementById("gsendtime2").innerHTML=json.GSENDTIME;
+                                            document.getElementById("gstimer2").innerHTML=json.GSTIME;
+
+                                            var winyt = json.GSENDTIME;
+
+                                            var time = json.GSTIME;
+                                            var hours = Number(time.match(/^(\d+)/)[1]);
+                                            var minutes = Number(time.match(/:(\d+)/)[1]);
+                                            var AMPM = time.match(/\s(.*)$/)[1];
+                                            if(AMPM == "PM" && hours<12) hours = hours+12;
+                                            if(AMPM == "AM" && hours==12) hours = hours-12;
+                                            var sHours = hours.toString();
+                                            var sMinutes = minutes.toString();
+                                            if(hours<10) sHours = "0" + sHours;
+                                            if(minutes<10) sMinutes = "0" + sMinutes;
+                                            time2.setHours(sHours);
+                                            time2.setMinutes(sMinutes);
+                                            time2.setSeconds(00);
+                                            t1 = time2.getTime();
+                                            t2 = time3.getTime();
+                                            timeleft = t1 - t2;
+                                            
+                                            var minutes = Math.floor((timeleft % (1000 * 60 * 60)) / (1000 * 60));
+                                            var seconds = Math.floor((timeleft % (1000 * 60)) / 1000);
+                                            document.getElementById("gstimer").innerHTML=harold(minutes) + ":" + harold(seconds);
+                                            document.getElementById("gstimer2").innerHTML=harold(minutes) + ":" + harold(seconds);
+                                            
+                                            var mstr = harold(minutes);
+                                            var sstr = harold(seconds);
+
+                                            if(mstr == 14 && sstr <=55)
+                                            {
+                                                $("#saveButton").modal('hide');
+                                                modal.style.visibility ="hidden";
+                                            }
+
+
+                                            $.post("/FRENCHISEdesk/getwiningyantra", { todaydatestr:Datetxt,gsendtime:winyt,yesterday:YesDatetxt}, function (json) {
+                                            
+                                                document.getElementById("x-scroller-program").innerHTML = json.GSENDTIME;
+                                                var modal = document.getElementById("myModal");
+                                                var modalImg = document.getElementById("img01");
+                                                modalImg.src =json.GSTIME;
+                                            
+                                            })
+
+                                            if(mstr ==14 && sstr >=58)
+                                            {
+                                                
+                                                $("#saveButton").modal("show");
+                                            }
+
+                                        }
+                                        )
+                                    });
+									
+                                    }
+                                    setInterval(clock, 1000);
+                                </script>
+								<script>
+								    function objdivscroll() {
+								        var objDiv = document.getElementById("x-scroller-program");
+								        $(".prod_detail_sec").scrollTop(objDiv.scrollHeight);
+								    }
+								    setInterval(objdivscroll, 15000);
+                                </script>
+                            </div>
+                        </div>
+                    </header>
+                    <section>
+                        <div class="row-fluid home_detail_1">
+                            <div class="home_slider_sec">
+                                <div class="home_slider" style="margin: 0px;">
+                                    <div class="cycle-slideshow" data-cycle-fx="flipHorz" data-cycle-timeout="1500" style="position: relative;">
+                                        <img src="~/agent/img/yantra_img/IMG1.jpg" class="cycle-slide cycle-sentinel" style="position: static; top: 0px; left: 0px; z-index: 100; backface-visibility: hidden; opacity: 1; display: block; visibility: hidden;">
+                                        <img src="~/agent/img/yantra_img/IMG2.png" class="cycle-slide" style="position: absolute; top: 0px; left: 0px; z-index: 99; backface-visibility: hidden; visibility: hidden; transform: rotateY(90deg); display: block; background-position: 90px center; opacity: 1;">
+                                        <img src="~/agent/img/yantra_img/IMG3.png" class="cycle-slide" style="position: absolute; top: 0px; left: 0px; z-index: 97; backface-visibility: hidden; visibility: hidden; transform: rotateY(90deg); display: block; background-position: 90px center; opacity: 1;">
+                                        <img src="~/agent/img/yantra_img/IMG4.png" class="cycle-slide" style="position: absolute; top: 0px; left: 0px; z-index: 96; backface-visibility: hidden; visibility: hidden; transform: rotateY(90deg); display: block; background-position: 90px center; opacity: 1;">
+                                        <img src="~/agent/img/yantra_img/IMG5.jpg" class="cycle-slide" style="position: absolute; top: 0px; left: 0px; z-index: 95; backface-visibility: hidden; visibility: hidden; transform: rotateY(90deg); display: block; background-position: 90px center; opacity: 1;">
+                                        <img src="~/agent/img/yantra_img/IMG6.png" class="cycle-slide" style="position: absolute; top: 0px; left: 0px; z-index: 94; backface-visibility: hidden; visibility: hidden; transform: rotateY(90deg); display: block; background-position: 90px center; opacity: 1;">
+                                        <img src="~/agent/img/yantra_img/IMG7.png" class="cycle-slide" style="position: absolute; top: 0px; left: 0px; z-index: 93; backface-visibility: hidden; visibility: hidden; transform: rotateY(90deg); display: block; background-position: 90px center; opacity: 1;">
+                                        <img src="~/agent/img/yantra_img/IMG8.png" class="cycle-slide" style="position: absolute; top: 0px; left: 0px; z-index: 92; backface-visibility: hidden; visibility: hidden; transform: rotateY(90deg); display: block; background-position: 90px center; opacity: 1;">
+                                        <img src="~/agent/img/yantra_img/IMG9.png" class="cycle-slide" style="position: absolute; top: 0px; left: 0px; z-index: 91; backface-visibility: hidden; visibility: hidden; transform: rotateY(90deg); display: block; background-position: 90px center; opacity: 1;">
+                                        <img src="~/agent/img/yantra_img/IMG0.jpg" class="cycle-slide cycle-slide-active" style="position: absolute; top: 0px; left: 0px; z-index: 90; backface-visibility: hidden; visibility: visible; transform: rotateY(0deg); display: block; background-position: 0px center; opacity: 1;">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="prod_right" style="color: yellow">
+                                <div class="prod_list">
+                                    <div class="program_stock">
+                                        <div class="card-list">
+                                            <div class="card-one card-view"></div>
+                                        </div>
+                                        <div class="card-list">
+                                            <div class="card-two card-view"></div>
+                                        </div>
+                                        <div class="card-list">
+                                            <div class="card-three card-view"></div>
+                                        </div>
+                                        <div class="card-list">
+                                            <div class="card-four card-view"></div>
+                                        </div>
+                                        <div class="card-list">
+                                            <div class="card-five card-view"></div>
+                                        </div>
+                                        <div class="card-list">
+                                            <div class="card-six card-view"></div>
+                                        </div>
+                                        <div class="card-list">
+                                            <div class="card-seven card-view"></div>
+                                        </div>
+                                        <div class="card-list">
+                                            <div class="card-eight card-view"></div>
+                                        </div>
+                                        <div class="card-list">
+                                            <div class="card-nine card-view"></div>
+                                        </div>
+                                        <div class="card-list">
+                                            <div class="card-ten card-view"></div>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="yantra-wrapper">
+                                        <ul class="agent-yantra ">
+                                            <li>
+                                                <img src="~/agent/img/yantra_img/yantra1.png" alt="">
+                                                <input maxlength="5" type="text" class="input-blur" id="Shree" name="Shree" oninput="this.value=this.value.replace(/^0/, '');"></li>
+                                            <li>
+                                                <img src="~/agent/img/yantra_img/yantra2.png" alt="">
+                                                <input type="text" class="input-blur" id="Vashikaran" name="Vashikaran" maxlength="5" oninput="this.value=this.value.replace(/^0/, '');"></li>
+                                            <li>
+                                                <img src="~/agent/img/yantra_img/yantra3.png" alt="">
+                                                <input type="text" class="input-blur" id="Sudarshan" name="Sudarshan" maxlength="5" oninput="this.value=this.value.replace(/^0/, '');"></li>
+                                            <li>
+                                                <img src="~/agent/img/yantra_img/yantra4.png" alt="">
+                                                <input type="text" class="input-blur" id="Vastu" name="Vastu" maxlength="5" oninput="this.value=this.value.replace(/^0/, '');"></li>
+                                            <li>
+                                                <img src="~/agent/img/yantra_img/yantra5.png" alt="">
+                                                <input type="text" class="input-blur" id="Planet" name="Planet" maxlength="5" oninput="this.value=this.value.replace(/^0/, '');"></li>
+                                            <li>
+                                                <img src="~/agent/img/yantra_img/yantra6.png" alt="">
+                                                <input type="text" class="input-blur" id="Love" name="Love" maxlength="5" oninput="this.value=this.value.replace(/^0/, '');"></li>
+                                            <li>
+                                                <img src="~/agent/img/yantra_img/yantra7.png" alt="">
+                                                <input type="text" class="input-blur" id="Tara" name="Tara" maxlength="5" oninput="this.value=this.value.replace(/^0/, '');"></li>
+                                            <li>
+                                                <img src="~/agent/img/yantra_img/yantra8.png" alt="">
+                                                <input type="text" class="input-blur" id="Grah" name="Grah" maxlength="5" oninput="this.value=this.value.replace(/^0/, '');"></li>
+                                            <li>
+                                                <img src="~/agent/img/yantra_img/yantra9.png" alt="">
+                                                <input type="text" class="input-blur" id="Matsya" name="Matsya" maxlength="5" oninput="this.value=this.value.replace(/^0/, '');"></li>
+                                            <li>
+                                                <img src="~/agent/img/yantra_img/yantra10.png" alt="">
+                                                <input type="text" class="input-blur" id="Meditation" name="Meditation" maxlength="5" oninput="this.value=this.value.replace(/^0/, '');"></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <center>
+                        <div id="myModal" class="modal">
+                            <span class="close">&times;</span>
+                            
+                            <div id="caption"></div>
+                        </div>
+                            </center>
+
+                        <div class="prod_detail_sec scroll-container div-example-1" id="divExample">
+                            <div class="program-container" id="prog">
+                                <div class="responseData">
+                                    <div class="x-scroller" id="x-scroller-program">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <footer>
+                        <div class="game_time">
+                            <div class="container_inn"></div>
+                        </div>
+                        <div class="f_detail">
+                            <div class="current_item" style="margin: 4px 11px 0 -7px;">
+                                <ul>
+                                    <li><span>F10:</span>Ticket</li>
+                                    <li><span>F1:</span> Bal Tran</li>
+                                    <li><span>F2:</span> Jackpot</li>
+                                    <li><span>F8:</span> Barcode</li>
+                                </ul>
+                            </div>
+                            <div class="reprint reprint_ticket" id="print_lt reprint_print" style="margin: 20px 0 0 9px">
+                                <a id="print_lt" href="javascript:void()">Re-Print<br>
+                                    [F3]</a>
+                            </div>
+                            <div class="reprint" id="Cansel_Last_Ticket" style="margin: 20px 0 0 28px">
+                                <a href="javascript:void()">Cancel<br>
+                                    [F4]</a>
+                            </div>
+                            <div class="reprint" id="clear" style="margin: 20px 0 0 42px">
+                                <a>Clear<br>
+                                    [F5]</a>
+                            </div>
+                            <a class="exit_btn">
+                            </a>
+                            <div class="reprint saveData"  id="imageField" style="margin:20px 0 0 45px"><a href="hjavascript:void()">Save<br>[F6]</a></div>
+                            <input type="hidden" class="firstF6" value="false" name="f_six">
+
+                            <div class="modal fade" id="stockDetails" role="dialog" style="width: 780px; background-color: cornsilk; display: block">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header" style="background-color: #A56938;">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true" onclick="clearFirstF6();">&times;</span>
+                                            </button>
+                                            <h4 style="color: #ffff; float: center;">S. K. Online Marketing</h4>
+                                        </div>
+                                        <div class="modal-body" style="overflow: hidden;">
+                                            <div class="betting-details-stock">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal fade" id="saveButton" role="dialog" style="width: 780px; background-color: cornsilk">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header" style="background-color: #A56938;">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true" onclick="clearFirstF6();">&times;</span>
+                                            </button>
+                                            <h4 style="color: #ffff; float: center;">S. K. ONLINE MARKETING</h4>
+                                            <div hidden class="game_time headerTime">
+                                                <ul>
+                                                    <li>
+                                                        <input hidden class="clock" id="clock2" /></li>
+                                                    <li id="gsendtime2"></li>
+                                                    <li>&nbsp&nbsp</li>
+                                                    <li id="gstimer2"></li>
+                                                    <li>&nbsp&nbsp</li>
+                                                    <li id="datetoday2"></li>
+                                                    <li>&nbsp&nbsp</li>
+                                                    <li id="timetoday2"></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="betting-details">
+                                                <img class="modal-content" id="img01" style="height:250px;width:250px">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="reprint" id="purchage" style="margin: 20px 0 0 40px">
+                                <a href="~/FRENCHISEdesk/demo2">Purchase<br>
+                                    [F7]</a>
+                            </div>
+                            <div class="reprint" id="lucky" style="margin: 20px 0 0 17px">
+                                <a href="~/Frenchisedesk/Luckydraw">Lucky
+                                <br>
+                                    Draw [F9]</a>
+                            </div>
+                            <div class="f_box">
+                                <input type="hidden" class="total_yantra_amount" value="">
+                                <input type="hidden" class="multiply_amount" value="">
+                                <div class="f_box_1">0</div>
+                                <div class="f_box_3">0</div>
+                                <input id="anysearch-input" type="text" placeholder="" name="Shree" soninput="this.value=this.value.replace(/^0/, '');">
+                            </div>
+                        </div>
+                    </footer>
+                </div>
+                <div id="loader">
+                    <img src='~/agent/img/loader.gif' width="64" height="64" />
+                </div>
+                <div class="first-loader">
+                    <h3>Processing...</h3>
+                </div>
+                <iframe id="printf">
+                </iframe>
+                <div id="printableArea">
+                    <div>
+                        <table style="width:100%;border: 1px solid black;border-collapse: collapse;">
+                            <tr>
+                                <th style="border: 1px solid black;border-collapse: collapse;" colspan="4">S. K. ONLINE MARKETING</th>
+                            </tr>
+                            <tr>
+                                <th colspan="4">GST IN : 24AHDPA8188K2Z5</th>
+                            </tr>
+                            <tr>
+                                <th colspan="4">RECIPT N0 : <span id="rnrp"></span></th>
+                            </tr>
+                            <tr>
+                                <th >ID</th>
+                                <th >DRAW TIME</th>
+                                <th colspan="2" >PURCHASETIME</th>
+                            </tr>
+                            <tr>
+                                <th id="fuidrp"></th>
+                                <th id="rdt" ></th>
+                                <th id="rpt" colspan="2" ></th>
+                            </tr>
+                        </table>
+                        <table style="width:100%;border: 1px solid black;border-collapse: collapse;">
+                            <tr>
+                                <th style="border: 1px solid black;border-collapse: collapse;" >YANTRA</th>
+                                <th style="border: 1px solid black;border-collapse: collapse;" >QTY</th>
+                                <th style="border: 1px solid black;border-collapse: collapse;" >RATE</th>
+                                <th style="border: 1px solid black;border-collapse: collapse;" >TOTAL</th>
+                            </tr>
+                            <tr id="shreerow">
+                                <th id="shreerp" style="border: 1px solid black;border-collapse: collapse;" >Shree</th>
+                                <th id="shreerpqty" style="border: 1px solid black;border-collapse: collapse;" ></th>
+                                <th id="shreerprate" style="border: 1px solid black;border-collapse: collapse;" >11</th>
+                                <th id="shreerpttl" style="border: 1px solid black;border-collapse: collapse;" ></th>
+                            </tr>
+                            <tr id="vashikaranrow">
+                                <th id="vashikaranrp" style="border: 1px solid black;border-collapse: collapse;" >Vashikaran</th>
+                                <th id="vashikaranrpqty" style="border: 1px solid black;border-collapse: collapse;" ></th>
+                                <th id="vashikaranrprate" style="border: 1px solid black;border-collapse: collapse;" >11</th>
+                                <th id="vashikaranrpttl" style="border: 1px solid black;border-collapse: collapse;" ></th>
+                            </tr>
+                            <tr id="sudarshanrow">
+                                <th id="sudarshanrp" style="border: 1px solid black;border-collapse: collapse;" >Sudarshan</th>
+                                <th id="sudarshanrpqty" style="border: 1px solid black;border-collapse: collapse;" ></th>
+                                <th id="sudarshanrprate" style="border: 1px solid black;border-collapse: collapse;" >11</th>
+                                <th id="sudarshanrpttl" style="border: 1px solid black;border-collapse: collapse;" ></th>
+                            </tr>
+                            <tr id="vasturow">
+                                <th id="vasturp" style="border: 1px solid black;border-collapse: collapse;" >Vastu</th>
+                                <th id="vasturpqty" style="border: 1px solid black;border-collapse: collapse;" ></th>
+                                <th id="vasturprate" style="border: 1px solid black;border-collapse: collapse;" >11</th>
+                                <th id="vasturpttl" style="border: 1px solid black;border-collapse: collapse;" ></th>
+                            </tr>
+                            <tr id="planetrow">
+                                <th id="planetrp" style="border: 1px solid black;border-collapse: collapse;" >Planet</th>
+                                <th id="planetrpqty" style="border: 1px solid black;border-collapse: collapse;" ></th>
+                                <th id="planetrprate" style="border: 1px solid black;border-collapse: collapse;" >11</th>
+                                <th id="planetrpttl" style="border: 1px solid black;border-collapse: collapse;" ></th>
+                            </tr>
+                            <tr id="loverow">
+                                <th id="loverp" style="border: 1px solid black;border-collapse: collapse;" >Love</th>
+                                <th id="loverpqty" style="border: 1px solid black;border-collapse: collapse;" ></th>
+                                <th id="loverprate" style="border: 1px solid black;border-collapse: collapse;" >11</th>
+                                <th id="loverpttl" style="border: 1px solid black;border-collapse: collapse;" ></th>
+                            </tr>
+                            <tr id="tararow">
+                                <th id="tararp" style="border: 1px solid black;border-collapse: collapse;" >Tara</th>
+                                <th id="tararpqty" style="border: 1px solid black;border-collapse: collapse;" ></th>
+                                <th id="tararprate" style="border: 1px solid black;border-collapse: collapse;" >11</th>
+                                <th id="tararpttl" style="border: 1px solid black;border-collapse: collapse;" ></th>
+                            </tr>
+                            <tr id="grahrow">
+                                <th id="grahrp" style="border: 1px solid black;border-collapse: collapse;" >Grah</th>
+                                <th id="grahrpqty" style="border: 1px solid black;border-collapse: collapse;" ></th>
+                                <th id="grahrprate" style="border: 1px solid black;border-collapse: collapse;" >11</th>
+                                <th id="grahrpttl" style="border: 1px solid black;border-collapse: collapse;" ></th>
+                            </tr>
+                            <tr id="matsyarow">
+                                <th id="matsyarp" style="border: 1px solid black;border-collapse: collapse;" >Matsya</th>
+                                <th id="matsyarpqty" style="border: 1px solid black;border-collapse: collapse;" ></th>
+                                <th id="matsyarprate" style="border: 1px solid black;border-collapse: collapse;" >11</th>
+                                <th id="matsyarpttl" style="border: 1px solid black;border-collapse: collapse;" ></th>
+                            </tr>
+                            <tr id="meditationrow">
+                                <th id="meditationrp" style="border: 1px solid black;border-collapse: collapse;" >Meditation</th>
+                                <th id="meditationrpqty" style="border: 1px solid black;border-collapse: collapse;" ></th>
+                                <th id="meditationrprate" style="border: 1px solid black;border-collapse: collapse;" >11</th>
+                                <th id="meditationrpttl" style="border: 1px solid black;border-collapse: collapse;" ></th>
+                            </tr>
+                            <tr>
+                                <th  style="border: 1px solid black;border-collapse: collapse;" >TOTAL</th>
+                                <th id="totaly" style="border: 1px solid black;border-collapse: collapse;" ></th>
+                                <th style="border: 1px solid black;border-collapse: collapse;" ></th>
+                                <th id="rvalrp" style="border: 1px solid black;border-collapse: collapse;" ></th>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px solid black;border-collapse: collapse;" colspan="4">
+                                    <center><svg id="barcode"></svg></center>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div id="printableArea2">
+                    <div>
+                        <center>
+                            <h6>~: WINNER RECEIPT :~</h6>
+                        </center>
+                        <table style="width:100%;border: 1px solid black;border-collapse: collapse;">
+                            <tr>
+                                <th style="border: 1px solid black;border-collapse: collapse;" colspan="4">S. K. ONLINE MARKETING</th>
+                            </tr>
+                            <tr>
+                                <th colspan="4">GST IN : 24AHDPA8188K2Z5</th>
+                            </tr>
+                            <tr>
+                                <th colspan="4">RECEIPT N0 : <span id="rnrp2"></span></th>
+                            </tr>
+                            <tr>
+                                <th >ID</th>
+                                <th >DRAW TIME</th>
+                                <th colspan="2" >PURCHASETIME</th>
+                            </tr>
+                            <tr>
+                                <th id="fuidrp2"></th>
+                                <th id="rdt2" ></th>
+                                <th id="rpt2" colspan="2" ></th>
+                            </tr>
+                        </table>
+                        <table style="width:100%;border: 1px solid black;border-collapse: collapse;">
+                            <tr>
+                                <th style="border: 1px solid black;border-collapse: collapse;" >YANTRA</th>
+                                <th style="border: 1px solid black;border-collapse: collapse;" >QTY</th>
+                                <th style="border: 1px solid black;border-collapse: collapse;" >SILVER COIN</th>
+                            </tr>
+                            <tr id="shreerow2">
+                                <th id="shreerp2" style="border: 1px solid black;border-collapse: collapse;" >Shree</th>
+                                <th id="shreerpqty2" style="border: 1px solid black;border-collapse: collapse;" ></th>
+                                <th id="shreerpttl2" style="border: 1px solid black;border-collapse: collapse;" ></th>
+                            </tr>
+                            <tr id="vashikaranrow2">
+                                <th id="vashikaranrp2" style="border: 1px solid black;border-collapse: collapse;" >Vashikaran</th>
+                                <th id="vashikaranrpqty2" style="border: 1px solid black;border-collapse: collapse;" ></th>
+                                <th id="vashikaranrpttl2" style="border: 1px solid black;border-collapse: collapse;" ></th>
+                            </tr>
+                            <tr id="sudarshanrow2">
+                                <th id="sudarshanrp2" style="border: 1px solid black;border-collapse: collapse;" >Sudarshan</th>
+                                <th id="sudarshanrpqty2" style="border: 1px solid black;border-collapse: collapse;" ></th>
+                                <th id="sudarshanrpttl2" style="border: 1px solid black;border-collapse: collapse;" ></th>
+                            </tr>
+                            <tr id="vasturow2">
+                                <th id="vasturp2" style="border: 1px solid black;border-collapse: collapse;" >Vastu</th>
+                                <th id="vasturpqty2" style="border: 1px solid black;border-collapse: collapse;" ></th>
+                                <th id="vasturpttl2" style="border: 1px solid black;border-collapse: collapse;" ></th>
+                            </tr>
+                            <tr id="planetrow2">
+                                <th id="planetrp2" style="border: 1px solid black;border-collapse: collapse;" >Planet</th>
+                                <th id="planetrpqty2" style="border: 1px solid black;border-collapse: collapse;" ></th>
+                                <th id="planetrpttl2" style="border: 1px solid black;border-collapse: collapse;" ></th>
+                            </tr>
+                            <tr id="loverow2">
+                                <th id="loverp2" style="border: 1px solid black;border-collapse: collapse;" >Love</th>
+                                <th id="loverpqty2" style="border: 1px solid black;border-collapse: collapse;" ></th>
+                                <th id="loverpttl2" style="border: 1px solid black;border-collapse: collapse;" ></th>
+                            </tr>
+                            <tr id="tararow2">
+                                <th id="tararp2" style="border: 1px solid black;border-collapse: collapse;" >Tara</th>
+                                <th id="tararpqty2" style="border: 1px solid black;border-collapse: collapse;" ></th>
+                                <th id="tararpttl2" style="border: 1px solid black;border-collapse: collapse;" ></th>
+                            </tr>
+                            <tr id="grahrow2">
+                                <th id="grahrp2" style="border: 1px solid black;border-collapse: collapse;" >Grah</th>
+                                <th id="grahrpqty2" style="border: 1px solid black;border-collapse: collapse;" ></th>
+                                <th id="grahrpttl2" style="border: 1px solid black;border-collapse: collapse;" ></th>
+                            </tr>
+                            <tr id="matsyarow2">
+                                <th id="matsyarp2" style="border: 1px solid black;border-collapse: collapse;" >Matsya</th>
+                                <th id="matsyarpqty2" style="border: 1px solid black;border-collapse: collapse;" ></th>
+                                <th id="matsyarpttl2" style="border: 1px solid black;border-collapse: collapse;" ></th>
+                            </tr>
+                            <tr id="meditationrow2">
+                                <th id="meditationrp2" style="border: 1px solid black;border-collapse: collapse;" >Meditation</th>
+                                <th id="meditationrpqty2" style="border: 1px solid black;border-collapse: collapse;" ></th>
+                                <th id="meditationrpttl2" style="border: 1px solid black;border-collapse: collapse;" ></th>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px solid black;border-collapse: collapse;" colspan="4">
+                                    <center><strong>CONGRATULATIONS !</strong></center>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="toPrint" style="display: none !important;"></div>
+        <div id="winPrint" style="display: none !important;"></div>
+        <div id="example-popup" class="popup">
+            <div class="popup-body">
+                <div class="popup-content">
+                    <div class="dataAlert" style="width: 100%; margin-bottom: 20px; float: left;"></div>
+                    <input class="add_buttons alertButton alertOk" type="button" value="Ok">
+                </div>
+            </div>
+        </div>
+        <div id="example-confirm" class="popup">
+            <div class="popup-body">
+                <div class="popup-content">
+                    <div class="dataConfirm" style="width: 100%; margin-bottom: 20px; float: left;"></div>
+                    <input onclick="myFunctioNCANCEL()" class="add_buttons  confirmOk" type="button" value="Ok">
+                    <input class="add_buttons confirmButton" type="button" value="Cancel">
+                    <script>
+                        function myFunctioNCANCEL() {
+                            var gametime = document.getElementById("gsendtime").innerHTML;
+                            $.ajax({
+                                type: "post",
+                                url: "/FRENCHISEdesk/cancelticket",
+                                data: {gsendtime:gametime},
+                                success: function(json) {
+                                    jQuery("#example-confirm").removeClass("visible");
+                                    jQuery(".popup-overlay").removeAttr("style");
+
+                                    var result = json;
+
+                                    if(result.message == 'exit'){
+                                        location.href = "~/FRENCHISEdesk/DASHBOARD";
+                                    }
+                                    if(result == "Recipt Cancelld !"){
+                                        $("#clear").click();
+                                        jQuery(".f_box_1, .f_box_3").html("0");
+                                        $("form").trigger("reset");
+                                        $('#isJodiBet').val(false)
+                                        $('#isTripleBet').val(false)
+                                        getBalance();
+                                        toastr.success("Ticket Canceled Successfully");
+                                        $('.jackpot_stock').html('Stock- '+result.jackpotStock);
+                                        getJodiYantraStock(yantra_number, program);
+                                    }else if(result == "Recipt Already Cancelld !"){
+                                        toastr.warning(result);
+                                    }else if(result == "GAME IS NOT ONLINE !"){
+                                        toastr.warning(result);
+                                    }
+                                    $("#Shree").focus();
+                                },
+                                error: function (response) {
+                                    console.log('something went wrong.');
+                                },
+                            })
+                        }
+                    </script>
+                </div>
+            </div>
+        </div>
+        <div id="example-exit" class="popup">
+            <div class="popup-body">
+                <div class="popup-content">
+                    <div class="dataExit" style="width: 100%; margin-bottom: 20px; float: left;"></div>
+                    
+                    <input onclick="myFunctionexit()" id="btnexitmnweb" class="add_buttons exitButton exitOk" type="button" value="OK" />
+                    <input class="add_buttons exitButton" type="button" value="Cancel">
+                    <script>
+                        function myFunctionexit() {
+                            location.href = ("DASHBOARD");
+                        }
+                    </script>
+                </div>
+            </div>
+        </div>
+        <div id="ticket-range-confirm" class="popup">
+            <div class="popup-body">
+                <div class="popup-content" style="background-color: rgb(218, 150, 24)">
+                    <div class="ticketRangeConfirm" style="width: 100%; margin-bottom: 20px; float: left;"></div>
+                    <input class="add_buttons ticketConfirm confirmOk" type="button" value="Ok">
+                    <input class="add_buttons ticketConfirm" type="button" value="Cancel">
+                </div>
+            </div>
+        </div>
+        <div id="example-prompt" class="popup">
+            <div class="popup-body">
+                <div class="popup-content">
+                    <div class="dataPrompt" style="width: 100%; margin-bottom: 15px; float: left;"></div>
+                    <input type="text" class="PromptValue" maxlen="6" style="width: 125px; border: 1px solid #000;">
+                    <br>
+                    <input class="add_buttons promptButton promptOk" type="button" value="Ok">
+                    <input class="add_buttons promptButton" type="button" value="Cancel">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="popup-overlay"></div><div id="anysearch-slidebox"><div id="anysearch-slidebox-button"><button id="anysearch-sidebutton" style="display: none;"><i class="anysearch-icon"></i></button></div><div id="anysearch-slidebox-content"><input id="anysearch-input" type="text" placeholder="" ></div></div> -->
+</body>
+<section id="jssec">
+    <script src="~/agent/js/program/internet.js"></script>
+    <script src="https://code.jquery.com/jquery-1.7.1.min.js" integrity="sha256-iBcUE/x23aI6syuqF7EeT/+JFBxjPs5zeFJEXxumwb0=" crossorigin="anonymous"></script>
+    <script src="~/agent/js/program/main2.js"></script>
+    <script src="~/agent/js/program/main3.js" type="text/javascript"></script>
+    <script type="text/javascript" src="~/agent/js/program/main4.js"></script>
+    <script type="text/javascript" src="~/agent/js/program/main5.js"></script>
+    <script type="text/javascript" src="~/agent/js/program/main6.js"></script>
+    <script type="text/javascript" src="~/agent/js/program/main7.js"></script>
+    <script type="text/javascript" src="~/agent/js/program/main8.js"></script>
+    <script type="text/javascript" src="~/agent/js/program/main9.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.0.min.js" integrity="sha256-Xxq2X+KtazgaGuA2cWR1v3jJsuMJUozyIXDB3e793L8=" crossorigin="anonymous"></script>
+    <script src="~/agent/js/program/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="~/agent/js/program/program.js"></script>
+    <script type="text/javascript" src="~/agent/js/program/main10.js"></script>
+    <script type="text/javascript" src="~/agent/js/program/main11.js"></script>
+    <script src="~/agent/js/Impresora.js"></script>
+</section>
+
+<script type="text/javascript">
+    window.onpageshow = function(event) {
+        if (event.persisted) {
+            window.location.reload()
+        }
+    };
+    $(window).load(function() {
+        $("#anysearch-input").val('');
+        $("#clear").click();
+        $("form").trigger("reset");
+        $('#isJodiBet').val(false)
+        $('#isTripleBet').val(false)
+        $('#isProgramBet').val(false)
+        var agent = $('.agent_type').val();
+        if(agent == 'agent_3'){
+            $('body').addClass('agent3');
+        }
+        var objDiv = document.getElementById("x-scroller-program");
+        $(".prod_detail_sec").scrollTop(objDiv.scrollHeight);
+
+        $("#Shree").focus();
+        $("#anysearch-sidebutton").hide();
+        $('.prod_list ul li input.input-blur').each(function(k, v) {
+            $(this).attr("maxlength", "5");
+        });
+        $('.prod_list ul li input.input-blur').keyup(function() {
+            $(this).val($(this).val().replace(/[^0-9]/g, ''));
+        });
+        $('.PromptValue').keyup(function() {
+            $(this).val($(this).val().replace(/[^0-9]/g, ''));
+        });
+        $('input.input-blur').keyup(function(e) {
+
+            if (e.which == 39){
+                $(this).closest('li').next().find('input').focus();
+                if($(this).attr('id') == 'Jackpot'){
+                    $('#Shree').focus();
+                }
+            }else if(e.which == 37){
+                $(this).closest('li').prev().find('input').focus();
+                if($(this).attr('id') == 'Shree'){
+                    $('#Jackpot').focus();
+                }
+            }else if(e.which == 40){
+                $(this).closest('ul').next().find('li:eq(' + $(this).closest('li').index() + ')').find('input').focus();
+                if($(this).attr('id') == 'Shree'){
+                    $('#Love').focus();
+                }
+                if($(this).attr('id') == 'Vashikaran'){
+                    $('#Tara').focus();
+                }
+                if($(this).attr('id') == 'Sudarshan'){
+                    $('#Grah').focus();
+                }
+                if($(this).attr('id') == 'Vastu'){
+                    $('#Matsya').focus();
+                }
+                if($(this).attr('id') == 'Planet'){
+                    $('#Meditation').focus();
+                }
+            }else if(e.which == 38){
+                $(this).closest('ul').prev().find('li:eq(' + $(this).closest('li').index() + ')').find('input').focus();
+
+                if($(this).attr('id') == 'Love'){
+                    $('#Shree').focus();
+                }
+                if($(this).attr('id') == 'Tara'){
+                    $('#Vashikaran').focus();
+                }
+                if($(this).attr('id') == 'Grah'){
+                    $('#Sudarshan').focus();
+                }
+                if($(this).attr('id') == 'Matsya'){
+                    $('#Vastu').focus();
+                }
+                if($(this).attr('id') == 'Meditation'){
+                    $('#Planet').focus();
+                }
+            }
+        });
+    });
+
+    $(document).ready(function() {
+        $("#Cansel_Last_Ticket").click(function() {
+            confirmCancelTicket('Want to Cancel Last Receipt?');
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function() {
+
+        $('#saveButton.modal.show .close').click(function(){
+            $('#saveButton.modal').removeClass('show');
+            $('.modal-backdrop').remove();
+        });
+        $.noConflict();
+
+        $(window).bind('keydown', function(event) {
+            var funKeyDisable = $('.yantra-modal').is(':visible');
+            var funKeyDisableOption = $('.select-program-type').is(':visible');
+
+            if(funKeyDisable == false && funKeyDisableOption == false){
+                var agentType = $('.agent_type').val();
+
+                //f10 key
+                if (121 == event.keyCode && agentType != 'agent_3') {
+                    $.ajax({
+                        type: 'GET',
+                        url: "~/agent/program/program",
+                        data: {'currentStock' :true},
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        beforeSend: function () {
+                        },
+                        success: function (result) {
+                            $(".betting-details-stock").html(result);
+                            $("#stockDetails").modal("show");
+                        },
+                        error: function (response) {
+                            console.log(response);
+                        },
+                    });
+                }
+                // f2 key
+                if (113 == event.keyCode) {
+                    promptData("Please enter ticket.");
+                }
+                if (119 == event.keyCode) {
+                    $("#anysearch-input").focus();
+                    event.preventDefault();
+                }
+                if (114 == event.keyCode) {
+                    event.preventDefault();
+                    // $('.reprint_ticket').css('pointer-events', 'none');
+                    // reprint();
+                    $(".reprint_ticket").click();
+                }
+                //f5 key
+                if (116 == event.keyCode) {
+                    $("#clear").click();
+                    jQuery(".f_box_1, .f_box_3").html("0");
+                    $("form").trigger("reset");
+                    $('#isJodieBet').val(false);
+                    $('#isTripleBet').val(false);
+                    $("#Shree").focus();
+                    $(".total_yantra_amount").val(0);
+                    $(".multiply_amount").val(0);
+                    $('#triple_temp_total').val(0);
+                    $('#jodi_temp_total').val(0);
+                    event.preventDefault();
+                }
+                if (115 == event.keyCode) {
+                    $("#Cansel_Last_Ticket").click();
+                    event.preventDefault();
+                }
+
+                if (117 == event.keyCode) {
+                    
+                    //for 2 time f6 click add value hidden true.
+                    var f_Six = $('.firstF6').val();
+
+                    if(f_Six == 'false'){
+                        // $('.firstF6').val(true);
+                        $(".saveData").click();
+                    }else{
+
+                        printReceipt();
+                    }
+                    event.preventDefault();
+                }
+                if (112 == event.keyCode) {
+                    location.href = "BALTRANSFERCLIENT";
+                    event.preventDefault();
+                }
+                if (118 == event.keyCode) {
+                    location.href = "/FRENCHISEdesk/demo2";
+                    event.preventDefault();
+                }
+                if (120 == event.keyCode) {
+                    location.href = "/FRENCHISEdesk/Luckydraw";
+                    event.preventDefault();
+                }
+            }else{
+                //f1 key to add bet in jodi ALL input box.
+                var modalId = $('.modal.fade.in').attr('id');
+
+                if (112 == event.keyCode) {
+                    if(modalId.includes('jodiModal') == true){
+                        $(".tempjAll").focus();
+                        return false;
+                    }
+                    if(modalId.includes('tripleModal') == true){
+                        $(".temptAll").focus();
+                        return false;
+                    }
+                }
+                if (113 == event.keyCode) {
+                    if(modalId.includes('tripleModal') == true){
+                        $(".temptSP").focus();
+                        return false;
+                    }
+                }
+                if (114 == event.keyCode) {
+                    if(modalId.includes('tripleModal') == true){
+                        $(".temptDP").focus();
+                        return false;
+                    }
+                }
+                if (115 == event.keyCode) {
+                    if(modalId.includes('tripleModal') == true){
+                        $(".temptTP").focus();
+                        return false;
+                    }
+                }
+                if (8 == event.keyCode) {
+                    var focused = document.activeElement;
+                    if (focused.tagName == 'INPUT') {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+                if (38 == event.keyCode) {
+                    var row = $(this).closest('li').next();
+                    row.find('input').focus();
+                }
+                if (39 == event.keyCode) {
+                    $(this).next().focus();
+                }
+                if (37 == event.keyCode) {
+                    $(this).next().focus();
+                }
+                if (40 == event.keyCode) {
+                    $(this).next().focus();
+                }
+                if(jQuery.inArray(event.keyCode, [112,113,119,114,115,116,117,118,120,121]) != -1){
+                    return false;
+                }
+
+            }
+        });
+    });
+</script>
+
+<script type="text/javascript">
+
+    var newBarcode = function() {
+        //Convert to boolean
+        JsBarcode(
+            "#barcode",
+            $("#userInput").val(),
+            {
+                "format": "ean8",
+                "height": parseInt(30)
+            });
+    };
+
+
+    var draw_time_hour =
+        11;
+    var draw_time_minute =
+    00;
+    jQuery(document).ready(function(event) {
+        jQuery(".input-blur").keyup(function(event) {
+
+            if(event.which == 13){
+                return false;
+            }
+            var Jackpot = parseInt(jQuery("#Jackpot").val());
+            var Shree = parseInt(jQuery("#Shree").val());
+            var Vashikaran = parseInt(jQuery("#Vashikaran").val());
+            var Sudarshan = parseInt(jQuery("#Sudarshan").val());
+            var Vastu = parseInt(jQuery("#Vastu").val());
+            var Planet = parseInt(jQuery("#Planet").val());
+            var Love = parseInt(jQuery("#Love").val());
+            var Tara = parseInt(jQuery("#Tara").val());
+            var Grah = parseInt(jQuery("#Grah").val());
+            var Matsya = parseInt(jQuery("#Matsya").val());
+            var Meditation = parseInt(jQuery("#Meditation").val());
+
+            if (isNaN(Jackpot))
+            {
+                var Jackpot = parseInt(0);
+            }
+            if (isNaN(Shree))
+            {
+                var Shree = parseInt(0);
+            }
+            if (isNaN(Vashikaran))
+            {
+                var Vashikaran = parseInt(0);
+            }
+            if (isNaN(Sudarshan))
+            {
+                var Sudarshan = parseInt(0);
+            }
+            if (isNaN(Vastu))
+            {
+                var Vastu = parseInt(0);
+            }
+            if (isNaN(Planet))
+            {
+                var Planet = parseInt(0);
+            }
+            if (isNaN(Love))
+            {
+                var Love = parseInt(0);
+            }
+            if (isNaN(Tara))
+            {
+                var Tara = parseInt(0);
+            }
+            if (isNaN(Grah))
+            {
+                var Grah = parseInt(0);
+            }
+            if (isNaN(Matsya))
+            {
+                var Matsya = parseInt(0);
+            }
+            if (isNaN(Meditation))
+            {
+                var Meditation = parseInt(0);
+            }
+            var total=0;
+            var program_total = 0;
+            var jodi_total=0;
+            var triple_total=0;
+            var formData = new Array();
+
+            $('.jodi_final_total').each(function () {
+                formData.push($(this).val());
+                jodi_total += parseFloat($(this).val()) || 0;
+            });
+
+            $('.triple_final_total').each(function () {
+                formData.push($(this).val());
+                triple_total += parseFloat($(this).val()) || 0;
+            });
+
+            $.each($(".input-blur"), function () {
+                if($(this).val() != ""){
+                    formData.push($(this).val());
+                    program_total += parseFloat($(this).val()) || 0;
+                }
+            });
+
+            $.each($("input[type='text']"), function () {
+                if (
+                    $(this).hasClass("tempjAll") == false &&
+                    $(this).hasClass("temptAll") == false &&
+                    $(this).hasClass("temptSP") == false &&
+                    $(this).hasClass("temptDP") == false &&
+                    $(this).hasClass("temptTP") == false
+                ) {
+                    total += parseFloat($(this).val()) || 0;
+                }
+            });
+
+            var checkJodiBet = $('#isJodiBet').val();
+            var checkTripleBet = $('#isTripleBet').val();
+            var cut_amount = $('#cutAmount').val();
+            var total_yantra = program_total * cut_amount;
+            var final_total = total_yantra + jodi_total + triple_total;
+
+            jQuery(".f_box_1").text(total);
+            $(".multiply_amount").val(final_total);
+            $(".total_yantra_amount").val(total);
+            jQuery(".f_box_3").text(final_total);
+        });
+
+        jQuery("#imageField").click(function(event) {
+            // var checkA = document.getElementById("imageField");
+            // if(checkA != null){
+            document.getElementById("imageField").disabled = true;
+            // }
+            var total = $(".f_box_1").text();
+            var grand_total = $(".f_box_3").text();
+            var checkJodiBet = $('#isJodiBet').val();
+            var checkTripleBet = $('#isTripleBet').val();
+            var checkProgramBet = $('#isProgramBet').val();
+                        
+
+            var draw_time = document.getElementById("gsendtime").innerHTML;
+
+            var cminute=document.getElementById("gstimer").innerHTML;
+            cminute=cminute.substring(0,2);
+            var csecond=document.getElementById("gstimer").innerHTML;
+            csecond=csecond.substring(3);
+
+            //if draw time remaining time is 10 sec than purhcase not available
+            if(cminute == 0 && csecond <= 10){
+                alertData('In the last 10 seconds, you are not able to purchase any yantra.');
+                $("#clear").click();
+                $("#saveButton").modal('hide');
+                $('.modal-backdrop').hide();
+                jQuery(".f_box_1, .f_box_3").html("0");
+                clearFirstF6();
+                return false;
+            }
+
+            toastr.remove();
+            toastr.options.closeButton = true;
+            var cs = csecond;
+            var csec = csecond;
+            var cm = cminute;
+            var totalAmount = $(".total_yantra_amount").val();
+            var multiplyAmount = $(".multiply_amount").val();
+            var agentBalance = $(".pull-right").text();
+            
+            
+            if(cm < 1 && csec <= 10){
+                //alertData('Session Expired.');
+                //return false;
+            } else {
+                var Jackpot = jQuery("#Jackpot").val();
+                var Shree = jQuery("#Shree").val();
+                var Vashikaran = jQuery("#Vashikaran").val();
+                var Sudarshan = jQuery("#Sudarshan").val();
+                var Vastu = jQuery("#Vastu").val();
+                var Planet = jQuery("#Planet").val();
+                var Love = jQuery("#Love").val();
+                var Tara = jQuery("#Tara").val();
+                var Grah = jQuery("#Grah").val();
+                var Matsya = jQuery("#Matsya").val();
+                var Meditation = jQuery("#Meditation").val();
+
+                var time = document.getElementById("timetoday").innerHTML;
+
+                var date = document.getElementById("Datetxtli").value;
+
+                var set_limit = $('#set_limit').val();
+                var limit_reached = false;
+
+                if (limit_reached == false && parseInt(set_limit) != 0){
+                    $.each($('.jodi-program-bet-form').serializeArray(), function( index, value ){
+                        if(value.name != '_token' &&  value.value >= parseInt(set_limit)){
+
+                            limit_reached = true;
+                        }
+                    });
+                }
+                if (limit_reached == false && parseInt(set_limit) != 0){
+                    $.each($('.triple-program-bet-form').serializeArray(), function( index, value ){
+                        if(value.name != '_token' &&  value.value >= parseInt(set_limit)){
+                            limit_reached = true;
+                        }
+                    });
+                }
+
+                var agentType = $('.agent_type').val();
+                if(agentType == 'agent_2'){
+
+                    if((Shree != '' && Vashikaran != '' && Sudarshan != '' && Vastu != '' && Planet != '' && Love != '' &&
+                    Tara != '' && Grah != '' && Matsya != '' && Meditation != '') && (Shree == Vashikaran && Vashikaran == Sudarshan && Sudarshan == Vastu && Vastu == Planet &&
+                        Planet == Love && Love == Tara && Tara == Grah && Grah == Matsya && Matsya == Meditation)){
+                        limit_reached = true;
+                    }
+                    if(parseInt(set_limit) != 0 && (Shree >= parseInt(set_limit) || Vashikaran >= parseInt(set_limit) || Sudarshan >= parseInt(set_limit) || Vastu>= parseInt(set_limit) || Planet>= parseInt(set_limit) || Love >= parseInt(set_limit) || Tara >= parseInt(set_limit) || Grah >= parseInt(set_limit) || Matsya >= parseInt(set_limit) || Meditation>= parseInt(set_limit))){
+                        limit_reached = true;
+                    }
+                }
+
+                if(checkJodiBet == 'false' && checkTripleBet == 'false' ){
+                    if (Shree.length <= 0 && Vashikaran.length <= 0 && Sudarshan.length <= 0 && Vastu.length <= 0 && Planet.length <= 0 && Love.length <= 0 && Tara.length <= 0 && Grah.length <= 0 && Matsya.length <= 0 && Meditation.length <= 0)
+                    {
+                        alertData('Enter Proper Yantra Quantity.');
+                        return false;
+                    }
+                }
+
+                $("#imageField").attr('disabled', 'disabled');
+                $("#imageField").attr('id', 'imageF');
+
+                var today_date  = date;
+                var isProgramBet = $('#isProgramBet').val();
+                var d = new Date();
+                var minute = d.getMinutes();
+                var second = d.getSeconds();
+
+
+                $.ajax({
+                    type: "post",
+                    url: "/FRENCHISEdesk/purchaseprocess",
+                    data: { isProgramBet: isProgramBet, totalAmount : totalAmount,multiplyAmount:multiplyAmount,draw_time:draw_time,today_date:today_date, time:time,Shree:Shree,Vashikaran:Vashikaran,Sudarshan:Sudarshan,Vastu:Vastu,Planet:Planet,Love:Love,Tara:Tara,Grah:Grah,Matsya:Matsya,Meditation:Meditation},
+                    beforeSend: function(){
+                        showPopup();
+                        $('.first-loader').show();
+                    },
+                    complete: function(){
+                        $('.first-loader').hide();
+                    },
+                    success: function(json) {
+
+                        if(json.RSTATUS == "Ticket Generated Successfully")
+                        {
+                            alertData('Ticket Generated Successfully.');
+                            document.getElementById('fuidrp').innerHTML="SK"+json.FUID;                            
+                            document.getElementById('rdt').innerHTML=json.GSTIME;
+                            document.getElementById('rpt').innerHTML=json.RGTIME;
+                            
+                            if(json.Y1=="")
+                            {
+                                document.getElementById('shreerow').style.visibility="collapse";
+                            }
+
+                            if(json.Y2=="")
+                            {
+                                document.getElementById('vashikaranrow').style.visibility="collapse";
+                            }
+
+                            if(json.Y3=="")
+                            {
+                                document.getElementById('sudarshanrow').style.visibility="collapse";
+                            }
+
+                            if(json.Y4=="")
+                            {
+                                document.getElementById('vasturow').style.visibility="collapse";
+                            }
+
+                            if(json.Y5=="")
+                            {
+                                document.getElementById('planetrow').style.visibility="collapse";
+                            }
+
+                            if(json.Y6=="")
+                            {
+                                document.getElementById('loverow').style.visibility="collapse";
+                            }
+
+                            if(json.Y7=="")
+                            {
+                                document.getElementById('tararow').style.visibility="collapse";
+                            }
+
+                            if(json.Y8=="")
+                            {
+                                document.getElementById('grahrow').style.visibility="collapse";
+                            }
+
+                            if(json.Y9=="")
+                            {
+                                document.getElementById('matsyarow').style.visibility="collapse";
+                            }
+
+                            if(json.Y10=="")
+                            {
+                                document.getElementById('meditationrow').style.visibility="collapse";
+                            }
+
+                            document.getElementById('shreerpqty').innerHTML=json.Y1;
+                            document.getElementById('shreerpttl').innerHTML=(json.Y1)*11;
+                            document.getElementById('vashikaranrpqty').innerHTML=json.Y2;
+                            document.getElementById('vashikaranrpttl').innerHTML=(json.Y2)*11;
+                            document.getElementById('sudarshanrpqty').innerHTML=json.Y3;
+                            document.getElementById('sudarshanrpttl').innerHTML=(json.Y3)*11;
+                            document.getElementById('vasturpqty').innerHTML=json.Y4;
+                            document.getElementById('vasturpttl').innerHTML=(json.Y4)*11;
+                            document.getElementById('planetrpqty').innerHTML=json.Y5;
+                            document.getElementById('planetrpttl').innerHTML=(json.Y5)*11;
+                            document.getElementById('loverpqty').innerHTML=json.Y6;
+                            document.getElementById('loverpttl').innerHTML=(json.Y6)*11;
+                            document.getElementById('tararpqty').innerHTML=json.Y7;
+                            document.getElementById('tararpttl').innerHTML=(json.Y7)*11;
+                            document.getElementById('grahrpqty').innerHTML=json.Y8;
+                            document.getElementById('grahrpttl').innerHTML=(json.Y8)*11;
+                            document.getElementById('matsyarpqty').innerHTML=json.Y9;
+                            document.getElementById('matsyarpttl').innerHTML=(json.Y9)*11;
+                            document.getElementById('meditationrpqty').innerHTML=json.Y10;
+                            document.getElementById('meditationrpttl').innerHTML=(json.Y10)*11;
+                            document.getElementById('rvalrp').innerHTML=json.RVAL;
+                            document.getElementById('totaly').innerHTML=json.GSID;
+                            var strrnint = json.RWINVAL;
+                            var strrn=strrnint.toString();
+                            JsBarcode("#barcode", strrn, {format: "code128",width:3,height:30,displayValue:false});
+                            document.getElementById('rnrp').innerHTML=strrn;
+                            var printContents = document.getElementById('printableArea').innerHTML;
+                            var originalContents = document.body.innerHTML;
+                            document.body.innerHTML = printContents;
+
+                            window.print();
+
+                            function myFunction() {
+                                //window.location.href = "/PROGRAM";
+                                window.location.reload();
+                            }
+
+                            window.onafterprint=myFunction();
+                            $("#imageF").removeAttr('disabled');
+                            $("#imageF").attr('id', 'imageField');
+                            return false;
+                        }
+
+                        if(json == "GAME IS NOT ONLINE TODAY")
+                        {
+                            alertData('GAME IS NOT ONLINE TODAY.');
+                            $("#imageF").removeAttr('disabled');
+                            $("#imageF").attr('id', 'imageField');
+                            resetAllBet();
+                            return false;
+                        }
+
+                        if(json == "session_close"){
+                            $("#clear").click();
+                            $("#saveButton").modal('hide');
+                            $('.modal-backdrop').hide();
+                            jQuery(".f_box_1, .f_box_3").html("0");
+                            clearFirstF6();
+                            $("#imageF").removeAttr('disabled');
+                            $("#imageF").attr('id', 'imageField');
+                            alertData('Session close.');
+                            return false;
+                        }
+                        if (json == "Ticket Generated Successfully") {
+                            alertData('Low Balance.');
+                            $("#imageF").removeAttr('disabled');
+                            $("#imageF").attr('id', 'imageField');
+                            resetAllBet();
+                            return false;
+                        }
+                    }
+                });
+            }
+            return false;
+        });
+
+    });
+</script>
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+        jQuery(".alertButton").click(function() {
+            var thisVal = jQuery(this).val();
+            if (thisVal == 'Ok') {
+                jQuery("#example-popup").removeClass("visible");
+                jQuery(".popup-overlay").removeAttr("style");
+                jQuery("#Shree").focus();
+                return false;
+            }
+        });
+
+        var objDiv = document.getElementById("x-scroller-program");		
+        objDiv.scrollTop = objDiv.scrollHeight - objDiv.clientHeight;
+
+        jQuery(".exitButton").click(function() {
+            var thisVal = jQuery(this).val();
+            if (thisVal == 'Ok') {
+                cancelTicket('exit');
+            } else {
+                jQuery("#example-exit").removeClass("visible");
+                jQuery(".popup-overlay").removeAttr("style");
+                jQuery("#Shree").focus();
+                return false;
+            }
+        });
+        jQuery(".ticketConfirm").click(function() {
+            var thisVal = jQuery(this).val();
+            if (thisVal == 'Ok') {
+                ticketRangeConfirmOk('is_confirm');
+            } else {
+                jQuery("#ticket-range-confirm").removeClass("visible");
+                jQuery(".popup-overlay").removeAttr("style");
+                jQuery("#Shree").focus();
+                return false;
+            }
+        });
+        jQuery(".confirmButton").click(function() {
+            var thisVal = jQuery(this).val();
+            if (thisVal == 'Ok') {
+                cancelTicket('cancel');
+            } else {
+                jQuery("#example-confirm").removeClass("visible");
+                jQuery(".popup-overlay").removeAttr("style");
+                jQuery("#Shree").focus();
+                return false;
+            }
+        });
+        jQuery(".promptButton").click(function(event) {
+            var thisVal = jQuery(this).val();
+            var promptData = jQuery(".PromptValue").val();
+            if (thisVal == 'Ok') {
+
+                if (promptData != '' && parseInt(promptData)) {
+
+                    if (promptData.length <= 5 && promptData != 0) {
+                        // console.log($(".multiply_amount").val(),$(".total_yantra_amount").val());
+                        var totalAmount = $(".multiply_amount").val();
+                        var total = $(".total_yantra_amount").val();
+                        $(".multiply_amount").val('0');
+                        $(".total_yantra_amount").val('0');
+                        jQuery(".f_box_1, .f_box_3").html("0");
+
+                        var promptValue = promptData.replace(/[^0-9]/g, '');
+                        var formData = new Array();
+                        var total_yantra = promptValue * 11 * 10 +  parseFloat(totalAmount);
+                        var multiTotal = promptValue * 10 + parseFloat(total);
+
+                        jQuery(".f_box_1").text(multiTotal);
+                        $(".multiply_amount").val(total_yantra);
+                        $(".total_yantra_amount").val(multiTotal);
+
+                        jQuery(".f_box_3").text(total_yantra);
+                        $('.prod_list ul li input.input-blur').val(promptValue);
+                    }
+                }
+                jQuery("#example-prompt").removeClass("visible");
+                jQuery(".popup-overlay").removeAttr("style");
+                jQuery(".PromptValue").val('');
+                jQuery("#Shree").focus();
+                return false;
+            } else {
+                jQuery("#example-prompt").removeClass("visible");
+                jQuery(".popup-overlay").removeAttr("style");
+                jQuery("#Shree").focus();
+                return false;
+            }
+        });
+
+        jQuery(".exit_btn").click(function() {
+            confirmExit('S. K. ONLINE MARKETING \n\n Want to Exit?');
+        });
+        jQuery("#clear").click(function() {
+            $("#Shree").focus();
+            jQuery('#Shree').val("");
+            jQuery('#Vashikaran').val("");
+            jQuery('#Sudarshan').val("");
+            jQuery('#Vastu').val("");
+            jQuery('#Planet').val("");
+            jQuery('#Love').val("");
+            jQuery('#Tara').val("");
+            jQuery('#Grah').val("");
+            jQuery('#Matsya').val("");
+            jQuery('#Meditation').val("");
+            jQuery('#Jackpot').val("");
+            jQuery(".f_box_1, .f_box_3").html("0");
+            $("form").trigger("reset");
+            $('#isJodiBet').val(false)
+            $('#isTripleBet').val(false);
+            $(".total_yantra_amount").val(0);
+            $(".multiply_amount").val(0);
+            $('#triple_temp_total').val(0)
+            $('#jodi_temp_total').val(0)
+        });
+    });
+
+    function showPopup(){
+        jQuery(".popup-overlay").attr("style", "left: 0; opacity: 0;");
+    }
+    function hidePopup(){
+        jQuery(".popup-overlay").removeAttr("style");
+        $('.modal-backdrop').hide();
+    }
+    function alertData(html) {
+        jQuery("#example-popup").addClass("visible");
+        var alertData = html;
+        jQuery("#example-popup .dataAlert").html(alertData);
+        jQuery(".popup-overlay").attr("style", "left: 0; opacity: 0");
+        jQuery(".alertOk").focus();
+        $(window).bind('keydown', function(event) {
+            if(event.keyCode == 13 || event.keyCode == 32){
+                jQuery(".alertOk").trigger('click');
+                return false;
+            }
+        });
+    }
+
+    function confirmCancelTicket(html) {
+        jQuery("#example-confirm").addClass("visible");
+        jQuery("#example-confirm.popup").attr("style", "left:35%");
+        var cData = html;
+        jQuery("#example-confirm .dataConfirm").html(cData);
+        jQuery(".popup-overlay").attr("style", "left: 0; opacity: 0");
+
+    }
+
+    function ticketRangeConfirmation(html) {
+        jQuery("#ticket-range-confirm").addClass("visible");
+        jQuery("#ticket-range-confirm.popup").attr("style", "left:35%");
+        var cData = html;
+        jQuery("#ticket-range-confirm .ticketRangeConfirm").html(cData);
+        jQuery(".popup-overlay").attr("style", "left: 0; opacity: 0");
+
+    }
+
+    function confirmExit(html) {
+        jQuery("#example-exit").addClass("visible");
+        jQuery("#example-exit.popup").attr("style", "left:30%");
+        var cData = html;
+        jQuery("#example-exit .dataExit").html(cData);
+        jQuery(".popup-overlay").attr("style", "left: 0; opacity: 0");
+        jQuery(".exitOk").focus();
+
+        $(window).bind('keydown', function(event) {
+            if(event.keyCode == 13 || event.keyCode == 32){
+                jQuery(".exitOk").trigger('click');
+                return false;
+            }
+        });
+    }
+
+    function promptData(html) {
+        jQuery("#example-prompt").addClass("visible");
+        var cData = html;
+        jQuery("#example-prompt .dataPrompt").html(cData);
+        jQuery(".popup-overlay").attr("style", "left: 0; opacity: 0");
+        jQuery(".PromptValue").focus();
+
+        $(window).bind('keydown', function(event) {
+            if(event.keyCode == 13 || event.keyCode == 32){
+                jQuery(".promptOk").trigger('click');
+                return false;
+            }
+        });
+    }
+    $("#shree").focus();
+</script>
+<script>
+    function printReceipt(e){
+        var agentType = Session["USERID"];
+        if(agentType == null ){
+            document.getElementById("imageF").disabled = true;
+        }
+        toastr.remove();
+        toastr.options.closeButton = true;
+        var checkJodiBet = $('#isJodiBet').val();
+        var checkTripleBet = $('#isTripleBet').val();
+        var checkProgramBet = $('#isProgramBet').val();
+
+        //if draw time remaining time is 10 sec than purhcase not available
+        if(cminute == 0 && csecond <= 10){
+            alertData('In the last 10 seconds, you are not able to purchase any yantra.');
+            $("#clear").click();
+            $("#saveButton").modal('hide');
+            $('.modal-backdrop').hide();
+            jQuery(".f_box_1, .f_box_3").html("0");
+            clearFirstF6();
+            return false;
+        }
+        var program = 'program';
+        var yantra_number = '';
+        $.ajax({
+            type: "GET",
+            url: "get-print",
+            data : {requestUrl:window.location.pathname,checkJodiBet:checkJodiBet,
+                checkTripleBet:checkTripleBet,checkProgramBet:checkProgramBet},
+            headers: {
+                "X-CSRF-TOKEN": "lMjBiqe5e6bCw8hLWHOEWpuziz9QLCaae3BF03Va",
+            },
+            beforeSend: function(){
+                $("[data-dismiss=modal]").trigger({ type: "click" });
+                $('.modal-backdrop').hide();
+                $('#loader').addClass('show-loader');
+            },
+            complete: function(){
+                $('#loader').removeClass('show-loader');
+            },
+            success: function (result) {
+                $("[data-dismiss=modal]").trigger({ type: "click" });
+                $('.modal-backdrop').hide();
+                $(".betting-details").modal('hide');
+                $('.firstF6').val('false');
+
+                $("#clear").click();
+                jQuery(".f_box_1, .f_box_3").html("0");
+                if (result.is_block == true) {
+                    alertData(result.message);
+                    return false;
+                }
+                if (result.success == false) {
+                    toastr.warning("Not Any Receipt To Re-Print.");
+                    return false;
+                }
+                if (result == 'barcode_expire') {
+                    alertData('This print is already used.');
+                    return false;
+                }
+                if(result != 1){
+                    getBalance();
+
+                    //get print dialog box without open tab/pop window
+                    var frame1 = document.createElement('iframe');
+                    frame1.name = "frame1";
+                    frame1.style.position = "absolute";
+                    frame1.style.top = "-1000000px";
+                    document.body.appendChild(frame1);
+                    var frameDoc = frame1.contentWindow ? frame1.contentWindow : frame1.contentDocument.document ? frame1.contentDocument.document : frame1.contentDocument;
+                    frameDoc.document.open();
+                    frameDoc.document.write(result);
+                    frameDoc.document.close();
+                    setTimeout(function () {
+                        window.frames["frame1"].focus();
+                        window.frames["frame1"].print();
+                        document.body.removeChild(frame1);
+                        $("#Shree").focus();
+                    }, 500);
+                    var agentType = "agent_2";
+                    if(agentType != 'agent_3'){
+                        getJodiYantraStock(yantra_number, program);
+                    }
+                }
+                return false;
+            },
+            error: function (response) {
+                console.log("something went wrong");
+            },
+        });
+    }
+
+    function saveDatas(){
+        $("#saveButton").modal("show");
+        // $("#saveButton" ).addClass('show');
+        var checkJodiBet = $('#isJodiBet').val();
+        var checkTripleBet = $('#isTripleBet').val();
+        var checkProgramBet = $('#isProgramBet').val();
+        $.ajax({
+            type: "GET",
+            url: "get-amount-details",
+            data : {requestUrl: window.location.pathname,checkJodiBet:checkJodiBet,
+                checkTripleBet:checkTripleBet,checkProgramBet:checkProgramBet},
+            headers: {
+                "X-CSRF-TOKEN": "lMjBiqe5e6bCw8hLWHOEWpuziz9QLCaae3BF03Va",
+            },
+            // beforeSend: function () {
+            // },
+            success: function (result) {
+                if(result.message == 'empty'){
+                    $("#saveButton").modal("hide");
+                    $('.modal-backdrop').hide();
+                    alertData('Something went wrong.Please try again.');
+                    return false;
+                }
+                getResults(result);
+                openModal();
+            },
+            error: function (response) {
+                console.log("something went wrong");
+            },
+        });
+    }
+    function getResults(result){
+        $(".betting-details").html(result);
+    }
+    function  openModal() {
+        $(".betting-details").modal('show');
+    }
+    function cancelTicket(type) {
+        toastr.remove();
+        toastr.options.closeButton = true;
+        var gametime = document.getElementById("gsendtime").innerHTML;
+        var fuidforcancel = Session["USERID"].toString;
+        $.ajax({
+            type: "post",
+            url: "/FRENCHISEdesk/cancelticket",
+            data: { strfuid: fuidforcancel,gsendtime:gametime},
+            success: function(json) {
+                jQuery("#example-confirm").removeClass("visible");
+                jQuery(".popup-overlay").removeAttr("style");
+
+                var result = json;
+
+                if(result.message == 'exit'){
+                    location.href = "~/FRENCHISEdesk/DASHBOARD";
+                }
+                if(result == "Recipt Cancelld !"){
+                    $("#clear").click();
+                    jQuery(".f_box_1, .f_box_3").html("0");
+                    $("form").trigger("reset");
+                    $('#isJodiBet').val(false)
+                    $('#isTripleBet').val(false)
+                    getBalance();
+                    toastr.success("Ticket Canceled Successfully");
+                    $('.jackpot_stock').html('Stock- '+result.jackpotStock);
+                    getJodiYantraStock(yantra_number, program);
+                }else if(result == "Recipt Already Cancelld !"){
+                    toastr.warning(result);
+                }else if(result == "GAME IS NOT ONLINE !"){
+                    toastr.warning(result);
+                }
+                $("#Shree").focus();
+            },
+            error: function (response) {
+                console.log('something went wrong.');
+            },
+            })
+        }
+    function clearFirstF6(){
+        $(".betting-details").modal('hide');
+        $('.firstF6').val('false');
+        $('#saveButton.modal').removeClass('show');
+        $('#imageF').removeAttr('disabled');
+        $('.popup-overlay').hide();
+        $('.modal-backdrop').hide();
+    }
+
+    $("#anysearch-input").keydown(function (e) {
+
+        var keyCode = e.which;
+        var data = $('#anysearch-input').val();
+        var date = document.getElementById("Datetxtli").value;
+        var today_date  = date;
+
+        // if($("#anysearch-input").is(":focus") == false)
+        if (keyCode == 13) {
+            if(data == ''){
+                alertData('Enter receipt number');
+                return false;
+            }            
+
+            $.ajax({
+                type: 'POST',
+                url: "/FRENCHISEdesk/ticketscaning",
+                data: {data:data,today_date:today_date},
+                success: function (json) {
+
+                    if(json == 'empty'){
+                        $("#anysearch-input").val('');
+                        alertData('Receipt not found.');
+                        return false;
+                    }
+                    if(json == 'Complete ticket scan'){
+                        $("#anysearch-input").val('');
+                        alertData('Some ticket number already scanned.');
+                        return false;
+                    }
+
+                    if(json == 'Cancelled ticket'){
+
+                        $("#anysearch-input").val('');
+                        alertData("This receipt number was canceled.");
+                        return false;
+                    }
+                    if(json == 'No Ticket Win'){
+                        $("#anysearch-input").val('');
+                        alertData('Sorry...There is no winning yantra.');
+                        return false;
+                    }
+                    if(json.RSTATUS == "Complete ticket scan")
+                    {
+                        document.getElementById('fuidrp2').innerHTML="SK"+json.FUID;                            
+                        document.getElementById('rdt2').innerHTML=json.GSTIME;
+                        document.getElementById('rpt2').innerHTML=json.RGTIME;
+                            
+                        if(json.Y1=="")
+                        {
+                            document.getElementById('shreerow2').style.visibility="collapse";
+                        }
+
+                        if(json.Y2=="")
+                        {
+                            document.getElementById('vashikaranrow2').style.visibility="collapse";
+                        }
+
+                        if(json.Y3=="")
+                        {
+                            document.getElementById('sudarshanrow2').style.visibility="collapse";
+                        }
+
+                        if(json.Y4=="")
+                        {
+                            document.getElementById('vasturow2').style.visibility="collapse";
+                        }
+
+                        if(json.Y5=="")
+                        {
+                            document.getElementById('planetrow2').style.visibility="collapse";
+                        }
+
+                        if(json.Y6=="")
+                        {
+                            document.getElementById('loverow2').style.visibility="collapse";
+                        }
+
+                        if(json.Y7=="")
+                        {
+                            document.getElementById('tararow2').style.visibility="collapse";
+                        }
+
+                        if(json.Y8=="")
+                        {
+                            document.getElementById('grahrow2').style.visibility="collapse";
+                        }
+
+                        if(json.Y9=="")
+                        {
+                            document.getElementById('matsyarow2').style.visibility="collapse";
+                        }
+
+                        if(json.Y10=="")
+                        {
+                            document.getElementById('meditationrow2').style.visibility="collapse";
+                        }
+                        
+                        alert("YOU WIN " + json.RVAL + " SILVR COINS");
+
+                        document.getElementById('shreerpqty2').innerHTML=json.Y1;
+                        document.getElementById('shreerpttl2').innerHTML=json.RVAL;
+                        document.getElementById('vashikaranrpqty2').innerHTML=json.Y2;
+                        document.getElementById('vashikaranrpttl2').innerHTML=json.RVAL;
+                        document.getElementById('sudarshanrpqty2').innerHTML=json.Y3;
+                        document.getElementById('sudarshanrpttl2').innerHTML=json.RVAL;
+                        document.getElementById('vasturpqty2').innerHTML=json.Y4;
+                        document.getElementById('vasturpttl2').innerHTML=json.RVAL;
+                        document.getElementById('planetrpqty2').innerHTML=json.Y5;
+                        document.getElementById('planetrpttl2').innerHTML=json.RVAL;
+                        document.getElementById('loverpqty2').innerHTML=json.Y6;
+                        document.getElementById('loverpttl2').innerHTML=json.RVAL;
+                        document.getElementById('tararpqty2').innerHTML=json.Y7;
+                        document.getElementById('tararpttl2').innerHTML=json.RVAL;
+                        document.getElementById('grahrpqty2').innerHTML=json.Y8;
+                        document.getElementById('grahrpttl2').innerHTML=json.RVAL;
+                        document.getElementById('matsyarpqty2').innerHTML=json.Y9;
+                        document.getElementById('matsyarpttl2').innerHTML=json.RVAL;
+                        document.getElementById('meditationrpqty2').innerHTML=json.Y10;
+                        document.getElementById('meditationrpttl2').innerHTML=json.RVAL;
+                        var strrnint = json.RWINVAL;
+                        var strrn=strrnint.toString();
+                        document.getElementById('rnrp2').innerHTML=strrn;
+                        var printContents = document.getElementById('printableArea2').innerHTML;
+                        var originalContents = document.body.innerHTML;
+                        document.body.innerHTML = printContents;
+
+                        window.print();
+
+                        function myFunction() {
+                            //window.location.href = "/PROGRAM";
+                            window.location.reload();
+                        }
+
+                        window.onafterprint=myFunction();
+                        $("#Shree").focus();
+                        return false;
+                    }
+                },
+                error: function (response) {
+                    console.log('something went wrong');
+                },
+            });
+        }
+    });
+
+    function  ticketRangeConfirmOk(is_confirm) {
+
+        var data = $('#anysearch-input').val();
+        var dataValidation = data.split(".");
+
+        if(data == ''){
+            alertData('Enter receipt number');
+            return false;
+        }
+        var agentType = "agent_2";
+        if(agentType == 'agent_3' || agentType == 'agent_2'){
+            //if agent is  agbnet_3 then only one ticket number field is required.
+            if(dataValidation[0] == undefined)
+            {
+                alertData('Invalid details.');
+                return false;
+            }
+        }else{
+            //if agent is  agent_1 then all three details required
+            if(dataValidation[0] == undefined || dataValidation[1] == undefined || dataValidation[2] == undefined)
+            {
+                alertData('Invalid details.');
+                return false;
+            }
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: "~/agent/program/ticket-scaning",
+            data: {data:data,agentType:agentType,'is_confirm':true},
+            headers: {
+                "X-CSRF-TOKEN": "lMjBiqe5e6bCw8hLWHOEWpuziz9QLCaae3BF03Va",
+            },
+            beforeSend: function () {
+            },
+            success: function (result) {
+                $("#ticket-range-confirm").removeClass("visible");
+                $(".popup-overlay").removeAttr("style");
+
+                if(result.message == 'empty'){
+                    alertData('Receipt not found.');
+                    return false;
+                }
+                if(result.message == 'no_winner'){
+                    $("#anysearch-input").val('');
+                    alertData('Sorry...There is no winning yantra');
+                    return false;
+                }
+                if(result.message == 'some_ticket_scanned'){
+                    $("#anysearch-input").val('');
+                    alertData('Some ticket number already scanned.');
+                    return false;
+                }
+                if(result.message == 'draw_pending'){
+                    $("#anysearch-input").val('');
+                    alertData('Draw pending');
+                    return false;
+                }
+                if(agentType == 'agent_2'){
+                    if(result.message == 'invalid_details'){
+                        alertData('Invalid details.');
+                        return false;
+                    }
+                }
+                if(result.message == 'cancelled'){
+                    $("#anysearch-input").val('');
+                    alertData('This receipt number was canceled.');
+                    return false;
+                }
+                if(result.message == 'ticket_no_range_available'){
+                    ticketRangeConfirmation('For this Yantra, you have a ticket no range available.');
+                    return false;
+                }
+
+                if(result.success == false){
+                    //already ticket scan message
+                    $("#anysearch-input").val('');
+                    alertData(result.message);
+                    return false;
+                }
+
+                $("#anysearch-input").val('');
+                getBalance();
+                $('#winPrint').html(result);
+                var msg = $('.message').text();
+                alertData(msg);
+
+                //get print dialog box without open tab/pop window
+                var frame1 = document.createElement('iframe');
+                frame1.name = "frame1";
+                frame1.style.position = "absolute";
+                frame1.style.top = "-1000000px";
+                document.body.appendChild(frame1);
+                var frameDoc = frame1.contentWindow ? frame1.contentWindow : frame1.contentDocument.document ?
+                frame1.contentDocument.document : frame1.contentDocument;
+                frameDoc.document.open();
+                frameDoc.document.write(result);
+                frameDoc.document.close();
+                setTimeout(function () {
+                    window.frames["frame1"].focus();
+                    window.frames["frame1"].print();
+                    document.body.removeChild(frame1);
+                }, 500);
+
+                $("#Shree").focus();
+                return false;
+            },
+            error: function (response) {
+                console.log('something went wrong');
+            },
+        });
+    }
+    $(document).ready(function() {
+        $("#anysearch-input").keydown(function(e){
+            var keyCode = e.which;
+            if (keyCode == 32) {
+                $(this).val($(this).val()+".");
+                return false;
+            }
+        });
+    });
+    jQuery(".reprint_ticket").click(function(event) {
+        $('.reprint_ticket').on('click', false);
+
+        var draw_time = document.getElementById("gsendtime").innerHTML;
+
+        $.ajax({
+            type: "post",
+            url: "/FRENCHISEdesk/reprintticket",
+            data: {draw_time:draw_time},
+            beforeSend: function(){
+                showPopup();
+                $('.first-loader').show();
+            },
+            complete: function(){
+                $('.first-loader').hide();
+            },
+            success: function(json) {
+
+                if(json.RSTATUS == "Ticket Generated Successfully")
+                {
+                    alertData('Ticket Generated Successfully.');
+                    document.getElementById('fuidrp').innerHTML="SK"+json.FUID;                            
+                    document.getElementById('rdt').innerHTML=json.GSTIME;
+                    document.getElementById('rpt').innerHTML=json.RGTIME;
+                            
+                    if(json.Y1=="")
+                    {
+                        document.getElementById('shreerow').style.visibility="collapse";
+                    }
+
+                    if(json.Y2=="")
+                    {
+                        document.getElementById('vashikaranrow').style.visibility="collapse";
+                    }
+
+                    if(json.Y3=="")
+                    {
+                        document.getElementById('sudarshanrow').style.visibility="collapse";
+                    }
+
+                    if(json.Y4=="")
+                    {
+                        document.getElementById('vasturow').style.visibility="collapse";
+                    }
+
+                    if(json.Y5=="")
+                    {
+                        document.getElementById('planetrow').style.visibility="collapse";
+                    }
+
+                    if(json.Y6=="")
+                    {
+                        document.getElementById('loverow').style.visibility="collapse";
+                    }
+
+                    if(json.Y7=="")
+                    {
+                        document.getElementById('tararow').style.visibility="collapse";
+                    }
+
+                    if(json.Y8=="")
+                    {
+                        document.getElementById('grahrow').style.visibility="collapse";
+                    }
+
+                    if(json.Y9=="")
+                    {
+                        document.getElementById('matsyarow').style.visibility="collapse";
+                    }
+
+                    if(json.Y10=="")
+                    {
+                        document.getElementById('meditationrow').style.visibility="collapse";
+                    }
+
+                    document.getElementById('shreerpqty').innerHTML=json.Y1;
+                    document.getElementById('shreerpttl').innerHTML=(json.Y1)*11;
+                    document.getElementById('vashikaranrpqty').innerHTML=json.Y2;
+                    document.getElementById('vashikaranrpttl').innerHTML=(json.Y2)*11;
+                    document.getElementById('sudarshanrpqty').innerHTML=json.Y3;
+                    document.getElementById('sudarshanrpttl').innerHTML=(json.Y3)*11;
+                    document.getElementById('vasturpqty').innerHTML=json.Y4;
+                    document.getElementById('vasturpttl').innerHTML=(json.Y4)*11;
+                    document.getElementById('planetrpqty').innerHTML=json.Y5;
+                    document.getElementById('planetrpttl').innerHTML=(json.Y5)*11;
+                    document.getElementById('loverpqty').innerHTML=json.Y6;
+                    document.getElementById('loverpttl').innerHTML=(json.Y6)*11;
+                    document.getElementById('tararpqty').innerHTML=json.Y7;
+                    document.getElementById('tararpttl').innerHTML=(json.Y7)*11;
+                    document.getElementById('grahrpqty').innerHTML=json.Y8;
+                    document.getElementById('grahrpttl').innerHTML=(json.Y8)*11;
+                    document.getElementById('matsyarpqty').innerHTML=json.Y9;
+                    document.getElementById('matsyarpttl').innerHTML=(json.Y9)*11;
+                    document.getElementById('meditationrpqty').innerHTML=json.Y10;
+                    document.getElementById('meditationrpttl').innerHTML=(json.Y10)*11;
+                    document.getElementById('rvalrp').innerHTML=json.RVAL;
+                    document.getElementById('totaly').innerHTML=json.GSID;
+                    var strrnint = json.RWINVAL;
+                    var strrn=strrnint.toString();
+                    JsBarcode("#barcode", strrn, {format: "code128",width:3,height:30,displayValue:false});
+                    document.getElementById('rnrp').innerHTML=strrn;
+                    var printContents = document.getElementById('printableArea').innerHTML;
+                    var originalContents = document.body.innerHTML;
+                    document.body.innerHTML = printContents;
+
+                    window.print();
+
+                    function myFunction() {
+                        //window.location.href = "/PROGRAM";
+                        window.location.reload();
+                    }
+
+                    window.onafterprint=myFunction();
+                    $("#imageF").removeAttr('disabled');
+                    $("#imageF").attr('id', 'imageField');
+                    return false;
+                }
+
+                if(json == "GAME IS NOT ONLINE TODAY")
+                {
+                    alertData('GAME IS NOT ONLINE TODAY.');
+                    $("#imageF").removeAttr('disabled');
+                    $("#imageF").attr('id', 'imageField');
+                    resetAllBet();
+                    return false;
+                }
+
+                if(json == "session_close"){
+                    $("#clear").click();
+                    $("#saveButton").modal('hide');
+                    $('.modal-backdrop').hide();
+                    jQuery(".f_box_1, .f_box_3").html("0");
+                    clearFirstF6();
+                    $("#imageF").removeAttr('disabled');
+                    $("#imageF").attr('id', 'imageField');
+                    alertData('Session close.');
+                    return false;
+                }
+                if (json == "Ticket Generated Successfully") {
+                    alertData('Low Balance.');
+                    $("#imageF").removeAttr('disabled');
+                    $("#imageF").attr('id', 'imageField');
+                    resetAllBet();
+                    return false;
+                }
+                if(data.message == "barcode_not_set"){
+                    alertData('No stock available, Please add the stock.');
+                    $("#imageF").removeAttr('disabled');
+                    $("#imageF").attr('id', 'imageField');
+                    resetAllBet();
+                    return false;
+                }
+
+                if(data.message == "barcode_number_empty"){
+                    alertData('Stock is less, Please add the stock.');
+                    $("#imageF").removeAttr('disabled');
+                    $("#imageF").attr('id', 'imageField');
+                    resetAllBet();
+                    return false;
+                }
+                if(data.message == "betting_details"){
+                    saveDatas();
+                }
+            }
+        });
+    });
+
+    function resetAllBet() {
+        $("#clear").click();
+        jQuery(".f_box_1, .f_box_3").html("0");
+        $("form").trigger("reset");
+        $('#isJodiBet').val(false)
+        $('#isTripleBet').val(false)
+    }
+</script>
+<script type="text/javascript" src="~/agent/js/jquery.scannerdetection.js"></script>
+<script type="text/javascript">
+    $(document).ready(function()
+    {
+        $(document).bind("contextmenu",function(e){
+            return false;
+        });
+    })
+</script>
+<script>
+
+    function openProgram(evt, programName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(programName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+</script>
+</html>

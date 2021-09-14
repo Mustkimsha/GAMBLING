@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b7ef9c6c13c24a9f8577d1ac984b3961" Name="Diagram1">
+        <EntityTypeShape EntityType="pm_admindbModel.ADMINUSER" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="pm_admindbModel.AFTXN" Width="1.5" PointX="3.375" PointY="0.75" />
+        <EntityTypeShape EntityType="pm_admindbModel.ADMINUSER1" Width="1.5" PointX="0.75" PointY="3.75" />
+        <EntityTypeShape EntityType="pm_admindbModel.AFTXN1" Width="1.5" PointX="2.75" PointY="4.75" />
+        <EntityTypeShape EntityType="pm_admindbModel.FRENCHISEBAL" Width="1.5" PointX="4.75" PointY="4.75" />
+        <EntityTypeShape EntityType="pm_admindbModel.FRENCHIS" Width="1.5" PointX="5.75" PointY="0.75" />
+        <EntityTypeShape EntityType="pm_admindbModel.FUTXN" Width="1.5" PointX="6.75" PointY="3.75" />
+        <EntityTypeShape EntityType="pm_admindbModel.GAMEPOOL" Width="1.5" PointX="4.75" PointY="7.75" />
+        <EntityTypeShape EntityType="pm_admindbModel.GAMESLOT" Width="1.5" PointX="7.75" PointY="0.75" />
+        <EntityTypeShape EntityType="pm_admindbModel.Recipt" Width="1.5" PointX="6.75" PointY="7.75" />
+        <EntityTypeShape EntityType="pm_admindbModel.FRENCHISEREPORT" Width="1.5" PointX="0.75" PointY="8.75" />
+        <EntityTypeShape EntityType="pm_admindbModel.TOTALSALE" Width="1.5" PointX="9.75" PointY="3.75" />
+        <EntityTypeShape EntityType="pm_admindbModel.USERBAL" Width="1.5" PointX="9.75" PointY="8.75" />
+        <EntityTypeShape EntityType="pm_admindbModel.USERTBL" Width="1.5" PointX="10.75" PointY="0.75" />
+        <EntityTypeShape EntityType="pm_admindbModel.YANTRA" Width="1.5" PointX="2.75" PointY="11.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,333 @@
+﻿@using MvcApplication1.Models
+
+@{
+    Layout = null;
+    string str = Session["USERNAME"].ToString();
+    str = str.Substring(2);
+    ViewBag.unamess = "SK" + str;
+}
+
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TRANSACTION REPORT</title>
+    <link href="~/adminlayout/vendor/fontawesome-free/css/all.css" rel="stylesheet" />
+    <link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.5.1.js"></script>
+    <script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+    
+   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4-4.1.1/dt-1.10.24/datatables.min.css"/>
+ 
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs4-4.1.1/dt-1.10.24/datatables.min.js"></script>
+
+  <script>
+      $(function () {
+
+          $("#datepicker").datepicker({
+              dateFormat: "dd-mm-yy",
+              showOn: "both",
+              buttonImageOnly: false,
+              buttonText: "<i class=\"fa fa-calendar\" aria-hidden=\"true\"></i>"
+          });
+          
+          $("#datepicker").datepicker("setDate", new Date());
+          var jsDate = $('#datepicker').datepicker("getDate");
+          var datetxt = jsDate.toLocaleDateString();
+          document.getElementById("ocdate").innerHTML = datetxt;
+          $.post("/FRENCHISEdesk/getreportdata", { datetxt: datetxt }, function (json) {
+              document.getElementById("ocdate").innerHTML = json.DATE;
+              document.getElementById("ob").innerHTML = json.OB;
+              document.getElementById("ar").innerHTML = json.AR;
+              document.getElementById("ap").innerHTML = json.AP;
+              document.getElementById("aw").innerHTML = json.AW;
+              document.getElementById("cb").innerHTML = json.CB;
+              document.getElementById("ocpl").innerHTML = json.OCPL;
+              document.getElementById("mccb").innerHTML = json.MCCB;
+              document.getElementById("mcc").innerHTML = json.MCC;
+              document.getElementById("mcd").innerHTML = json.MCD;
+              document.getElementById("mp").innerHTML = json.MP;
+              document.getElementById("mw").innerHTML = json.MW;
+              document.getElementById("mcpl").innerHTML = json.MCPL;
+              document.getElementById("mcdate").innerHTML = json.DATE;
+          });
+      });
+  </script>
+    <script>
+        function getdatarp() {
+            var jsDate = $('#datepicker').datepicker("getDate");
+            var datetxt = jsDate.toLocaleDateString();
+            document.getElementById("ocdate").innerHTML = datetxt;
+            $.post("/FRENCHISEdesk/getreportdata", { datetxt: datetxt }, function (json) {
+                document.getElementById("ocdate").innerHTML = json.DATE;
+                document.getElementById("ob").innerHTML = json.OB;
+                document.getElementById("ar").innerHTML = json.AR;
+                document.getElementById("ap").innerHTML = json.AP;
+                document.getElementById("aw").innerHTML = json.AW;
+                document.getElementById("cb").innerHTML = json.CB;
+                document.getElementById("ocpl").innerHTML = json.OCPL;
+                document.getElementById("mccb").innerHTML = json.MCCB;
+                document.getElementById("mcc").innerHTML = json.MCC;
+                document.getElementById("mcd").innerHTML = json.MCD;
+                document.getElementById("mp").innerHTML = json.MP;
+                document.getElementById("mw").innerHTML = json.MW;
+                document.getElementById("mcpl").innerHTML = json.MCPL;
+                document.getElementById("mcdate").innerHTML = json.DATE;
+            });
+        }
+    </script>
+</head>
+<body style="background-color: gray" class="jumbotron">
+    <div hidden style="border: 1px solid">
+        <center>
+            <div><h1></h1></div>
+            <label for="datepicker">DATE</label>
+        <span></span>
+        <input hidden class="clock" id="clock" />
+            <input hidden type="text" id="txt1"/>
+            <script>
+                function txt1fx() {
+                    location.href = "/FRENCHISEdesk/DASHBOARD";
+                }
+            </script>
+        <button class="ui-button" onclick="txt1fx()" type="submit"><strong>Search</strong></button>
+            <button class="ui-button" onclick="txt1fx()" type="submit"><strong>Exit</strong></button>
+            </center>
+        <br />
+    </div>
+
+    <br />
+    <center>
+    <h3>TRANSACTION REPORT</h3>
+        <button class="ui-button" onclick="txt1fx()" type="submit"><strong>Exit</strong></button>
+        <hr style="height:1px; border:none; color:#000; background-color:#000;">
+        
+        <table border="0" cellspacing="5" cellpadding="5">        
+        <tbody>
+            <tr>
+                
+        <td><input type="text" id="datepicker"></td>
+                <td>
+                    <button class="ui-button" onclick="getdatarp()" type="submit"><strong>Search</strong></button>
+                </td>
+            </tr>
+            <tr hidden>
+                <td><strong>From Date:</strong></td>
+                <td><input name="min" id="min" type="text"></td>
+                <td><strong>To Date:</strong></td>
+                <td><input name="max" id="max" type="text"></td>                
+            </tr>
+        </tbody>
+    </table>
+        <hr style="height:1px; border:none; color:#000; background-color:#000;">
+        <br />
+    </center>
+    <div class="card">
+        <div class="card-body table-responsive table-bordered">
+            <table id="maintbl1" class="display table table-sm" style="width: 100%">
+                <tr>
+                    <th class="text-center" colspan="7">OFFICE CLIENT</th>
+                </tr>
+                <tr class="thead-dark">
+                    <th class="text-center"  style="border-color:black;">DATE</th>
+                    <th class="text-center"  style="border-color:black;">OB</th>
+                    <th class="text-center"  style="border-color:black;">AR</th>
+                    <th class="text-center"  style="border-color:black;">AP</th>
+                    <th class="text-center"  style="border-color:black;">AW</th>
+                    <th class="text-center"  style="border-color:black;">CB</th>
+                    <th class="text-center"  style="border-color:black;">OCPL</th>
+                </tr>
+                <tr class="font-weight-bold">
+                    <td class="text-center" id="ocdate"  style="border-color:black;">DATE</td>
+                    <td class="text-center" id="ob" style="border-color:black;">OB</td>
+                    <td class="text-center" id="ar" style="border-color:black;">AR</td>
+                    <td class="text-center" id="ap" style="border-color:black;">AP</td>
+                    <td class="text-center" id="aw" style="border-color:black;">AW</td>
+                    <td class="text-center" id="cb" style="border-color:black;">CB</td>
+                    <td class="text-center" id="ocpl" style="border-color:black;">OCPL</td>
+                </tr>
+                <tr>
+                    <th class="text-center" colspan="7">MOBILE CLIENT</th>
+                </tr>
+                <tr class="thead-dark">
+                    <th class="text-center"  style="border-color:black;">DATE</th>
+                    <th class="text-center"  style="border-color:black;">MCCB</th>
+                    <th class="text-center"  style="border-color:black;">MCC</th>
+                    <th class="text-center"  style="border-color:black;">MCD</th>
+                    <th class="text-center"  style="border-color:black;">MP</th>
+                    <th class="text-center"  style="border-color:black;">MW</th>
+                    <th class="text-center"  style="border-color:black;">MCPL</th>
+                </tr>
+                <tr class="font-weight-bold">
+                    <td class="text-center" id="mcdate"  style="border-color:black;">DATE</td>
+                    <td class="text-center" id="mccb" style="border-color:black;">MCCB</td>
+                    <td class="text-center" id="mcc" style="border-color:black;">MCC</td>
+                    <td class="text-center" id="mcd" style="border-color:black;">MCD</td>
+                    <td class="text-center" id="mp" style="border-color:black;">MP</td>
+                    <td class="text-center" id="mw" style="border-color:black;">MW</td>
+                    <td class="text-center" id="mcpl" style="border-color:black;">MCPL</td>
+                </tr>
+            </table>
+        </div>
+        </div>
+    <div class="card" hidden>
+        <div class="card-body table-responsive table-bordered">
+            <table id="example" class="display table table-sm" style="width: 100%">
+                <thead class="thead-dark">
+                    <tr>
+                        <th class="text-center">DATE</th>
+                        <th class="text-center">OB</th>
+                        <th class="text-center">AR</th>
+                        <th class="text-center">AP</th>
+                        <th class="text-center">AW</th>
+                        <th class="text-center">CB</th>
+                        <th class="text-center">OCPL</th>
+                        <th class="text-center">MCCB</th>
+                        <th class="text-center">MCC</th>
+                        <th class="text-center">MCD</th>
+                        <th class="text-center">MP</th>
+                        <th class="text-center">MW</th>
+                        <th class="text-center">MCPL</th>
+                    </tr>
+                </thead>
+                <tbody class="font-weight-bold">
+                    @foreach (FRENCHISEREPORT item in Model as IEnumerable<MvcApplication1.Models.FRENCHISEREPORT>)
+                    {
+                        var fuidvar = Convert.ToUInt32(Session["USERID"]);
+                        var ifuid = item.FUID;
+                        if (ifuid == fuidvar)
+                        {
+                        <tr>
+                            <td class="text-center">@item.DATE</td>
+                            <td class="text-center">@item.OB</td>
+                            <td class="text-center">@item.AR</td>
+                            <td class="text-center">@item.AP</td>
+                            <td class="text-center">@item.AW</td>
+                            <td class="text-center">@item.CB</td>
+                            <td class="text-center">@item.OCPL</td>
+                            <td class="text-center">@item.MCCB</td>
+                            <td class="text-center">@item.MCC</td>
+                            <td class="text-center">@item.MCD</td>
+                            <td class="text-center">@item.MP</td>
+                            <td class="text-center">@item.MW</td>
+                            <td class="text-center">@item.MCPL</td>
+                        </tr>
+                            }
+                        }
+                </tbody>
+                <tfoot class="thead-dark">
+                    <tr>
+                        <th class="text-center">DATE</th>
+                        <th class="text-center">OB</th>
+                        <th class="text-center">AR</th>
+                        <th class="text-center">AP</th>
+                        <th class="text-center">AW</th>
+                        <th class="text-center">CB</th>
+                        <th class="text-center">OCPL</th>
+                        <th class="text-center">MCCB</th>
+                        <th class="text-center">MCC</th>
+                        <th class="text-center">MCD</th>
+                        <th class="text-center">MP</th>
+                        <th class="text-center">MW</th>
+                        <th class="text-center">MCPL</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+
+
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable({ "order": [] });
+            $("#example_filter").css("display", "none");  // hiding global search box
+            $.fn.dataTable.ext.search.push(
+        function (settings, data, dataIndex) {
+            var min = $('#min').datepicker("getDate");
+            var max = $('#max').datepicker("getDate");
+            var startDate = new Date(data[0]);
+            if (min == null && max == null) { return true; }
+            if (min == null && startDate <= max) { return true; }
+            if (max == null && startDate >= min) { return true; }
+            if (startDate <= max && startDate >= min) { return true; }
+            return false;
+        }
+        );
+
+
+            $("#min").datepicker({
+                dateFormat: "dd-mm-yy",
+                showOn: "both",
+                buttonImageOnly: false,
+                buttonText: "<i class=\"fa fa-calendar\" aria-hidden=\"true\"></i>",
+                onSelect: function () { table.draw(); }, changeMonth: true, changeYear: true
+            });
+            $("#max").datepicker({
+                dateFormat: "dd-mm-yy",
+                showOn: "both",
+                buttonImageOnly: false,
+                buttonText: "<i class=\"fa fa-calendar\" aria-hidden=\"true\"></i>",
+                onSelect: function () { table.draw(); }, changeMonth: true, changeYear: true
+            });
+            var table = $('#example').DataTable();
+
+            // Event listener to the two range filtering inputs to redraw on input
+            $('#min, #max').change(function () {
+                table.draw();
+            });
+        });
+
+
+
+    </script>
+
+
+    <script>
+        function clock() {// We create a new Date object and assign it to a variable called "time".
+            var timestamps;
+            var time;
+            $.get("https://vip.timezonedb.com/v2.1/get-time-zone?key=BSWYV6J8NXWD&format=json&by=zone&zone=Asia/Kolkata")
+        .done(function (json) {
+            console.log(json);
+            timestamps = json.formatted;
+            timeampm = new Date(timestamps);
+
+            time = new Date(timestamps),
+
+            // Access the "getHours" method on the Date object with the dot accessor.
+                hours = time.getHours(),
+
+            // Access the "getMinutes" method with the dot accessor.
+                minutes = time.getMinutes(),
+
+
+            years = timestamps.substring(0, 4);
+            months = timestamps.substring(5, 7);
+            day = timestamps.substring(8, 10);
+            dates = day + "/" + months + "/" + years;
+            dates2 = months + "/" + day + "/" + years;
+
+            document.getElementById("txt1").value = dates;
+            seconds = time.getSeconds();
+            var ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12;
+            hours = hours ? hours : 12; // the hour '0' should be '12'
+
+            document.getElementById("clock").value = harold(hours) + ":" + harold(minutes) + ":" + harold(seconds) + " " + ampm;
+            function harold(standIn) {
+                if (standIn < 10) {
+                    standIn = '0' + standIn
+                }
+                return standIn;
+            }
+        });
+
+        }
+        setInterval(clock, 1000);
+    </script>
+
+
+</body>
+</html>

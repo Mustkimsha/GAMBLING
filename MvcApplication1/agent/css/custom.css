@@ -1,0 +1,16 @@
+/************ Main **************/
+@media (max-width: 960px) {
+.container{ width:750px; margin:0 auto; padding:0;}
+
+
+}
+@media (max-width: 767px) {
+html { -webkit-text-size-adjust:none;}
+.container{ width:93%; margin:0 auto; padding:0;}
+
+}
+
+/************ iphone **************/
+@media (max-width: 480px) {
+
+}

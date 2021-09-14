@@ -1,0 +1,596 @@
+﻿@using MvcApplication1.Models
+
+@{
+    ViewBag.Title = "purchasedetails";
+    Layout = "~/Views/_Shared/FRNlayout.cshtml";
+    ViewBag.unamess = Session["USERNAME"];
+}
+
+<!-- Content Wrapper -->
+<div id="content-wrapper" class="d-flex flex-column">
+
+    <!-- Main Content -->
+    
+    <div id="content">
+
+        <!-- Topbar -->
+        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+            <!-- Sidebar Toggle (Topbar) -->
+            <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                <i class="fa fa-bars"></i>
+            </button>
+            <!-- Topbar Navbar -->
+            <ul class="navbar-nav ml-auto">
+                <div class="topbar-divider d-none d-sm-block"></div>
+
+                <!-- Nav Item - User Information -->
+                <li class="nav-item dropdown no-arrow">
+                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="mr-2 d-none d-lg-inline text-gray-600 small"><i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>@ViewBag.unamess</span>
+                    </a>
+                    <!-- Dropdown - User Information -->
+                    <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                        aria-labelledby="userDropdown">
+                        <a class="dropdown-item" href="#">
+                            <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                            Settings
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                            Logout
+                        </a>
+                    </div>
+                </li>
+
+            </ul>
+
+        </nav>
+        <!-- End of Topbar -->
+
+        <!-- Custom styles for this page -->
+
+            <link href="~/adminlayout/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" />
+            <input hidden class="clock" id="clock" />
+        <input type="text" id="datepicker">
+            <script>
+                function clock() {// We create a new Date object and assign it to a variable called "time".
+
+                    $("#datepicker").datepicker();
+                    var timestamps;
+                    var time;
+                    $.get("https://vip.timezonedb.com/v2.1/get-time-zone?key=BSWYV6J8NXWD&format=json&by=zone&zone=Asia/Kolkata")
+                .done(function (json) {
+                    console.log(json);
+                    timestamps = json.formatted;
+                    timeampm = new Date(timestamps);
+
+                    time = new Date(timestamps),
+
+                    // Access the "getHours" method on the Date object with the dot accessor.
+                        hours = time.getHours(),
+
+                    // Access the "getMinutes" method with the dot accessor.
+                        minutes = time.getMinutes(),
+
+
+                        seconds = time.getSeconds();
+                    var ampm = hours >= 12 ? 'PM' : 'AM';
+                    hours = hours % 12;
+                    hours = hours ? hours : 12; // the hour '0' should be '12'
+
+                    document.getElementById("clock").value = harold(hours) + ":" + harold(minutes) + ":" + harold(seconds) + " " + ampm;
+                    function harold(standIn) {
+                        if (standIn < 10) {
+                            standIn = '0' + standIn
+                        }
+                        return standIn;
+                    }
+                });
+
+                }
+                setInterval(clock, 1000);
+            </script>
+            <hr />
+
+            <hr />
+            <link href="~/adminlayout/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" />
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+
+                <div class="color-details row text-center">
+                    <h6 class="col-3">No ticket win: <span style="background-color: black;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp;</h6>
+                    <h6 class="col-3">Ticket win but not scan: <span style="background-color: blue;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp;</h6>
+                    <h6 class="col-3">Complete ticket scan: <span style="background-color: green;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp;</h6>
+                    <h6 class="col-3">Cancelled ticket: <span style="background-color: Red;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></h6>
+                </div>
+                <!-- DataTales Example -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">TRANSACTION REPORT</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-body table-responsive table-bordered">
+                            <table id="exampletbl" class="display table table-sm" style="width: 100%">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">RECIPT NO.</th>
+                                        <th class="text-center" colspan="2">PURCHASE DATE</th>
+                                        <th class="text-center">DRAW TIME</th>
+                                        <th class="text-center">TOTAL AMOUNT</th>
+                                        <th class="text-center">IS CLIENT</th>
+                                        <th class="text-center">VIEW</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (Recipt item in Model as IEnumerable<MvcApplication1.Models.Recipt>)
+                                    {
+                                        var fuidvar = Convert.ToUInt32(Session["USERID"]);
+                                        var ifuid = item.FUID;
+                                        var clrcod = "";
+                                        if (item.RSTATUS == "No Ticket Win")
+                                        {
+                                            clrcod = "color:black";
+                                        }
+
+                                        if (item.RSTATUS == "Ticket win but not scan")
+                                        {
+                                            clrcod = "color:blue";
+                                        }
+
+                                        if (item.RSTATUS == "Complete ticket scan")
+                                        {
+                                            clrcod = "color:green";
+                                        }
+
+                                        if (item.RSTATUS == "Cancelled ticket")
+                                        {
+                                            clrcod = "color:red";
+                                        }
+
+                                        if (ifuid == fuidvar)
+                                        {
+                                            var trid = Convert.ToString(item.RID) + "tr";
+                                            var mid = "model" + trid;
+                                            var dt = "#" + mid;
+                                            string GSTIME = Convert.ToString(item.GSTIME);
+                                            string gstimenew = "";
+                                        
+                                            if(item.GSTIME == "08:15:00 AM")
+                                            {
+                                                gstimenew = "08:30:00 AM";
+                                            }
+                                            if(item.GSTIME == "08:30:00 AM")
+                                            {
+                                                gstimenew = "08:45:00 AM";
+                                            }
+                                            if(item.GSTIME == "08:45:00 AM")
+                                            {
+                                                gstimenew = "09:00:00 AM";
+                                            }
+                                            if(item.GSTIME == "09:00:00 AM")
+                                            {
+                                                gstimenew = "09:15:00 AM";
+                                            }
+                                            if(item.GSTIME == "09:15:00 AM")
+                                            {
+                                                gstimenew = "09:30:00 AM";
+                                            }
+                                            if(item.GSTIME == "09:30:00 AM")
+                                            {
+                                                gstimenew = "09:45:00 AM";
+                                            }
+                                            if (item.GSTIME == "09:45:00 AM")
+                                            {
+                                                gstimenew = "10:00:00 AM";
+                                            }
+                                            if (item.GSTIME == "10:00:00 AM")
+                                            {
+                                                gstimenew = "10:15:00 AM";
+                                            }
+                                            if (item.GSTIME == "10:15:00 AM")
+                                            {
+                                                gstimenew = "10:30:00 AM";
+                                            }
+                                            if (item.GSTIME == "10:30:00 AM")
+                                            {
+                                                gstimenew = "10:45:00 AM";
+                                            }
+                                            if (item.GSTIME == "10:45:00 AM")
+                                            {
+                                                gstimenew = "11:00:00 AM";
+                                            }
+                                            if (item.GSTIME == "11:00:00 AM")
+                                            {
+                                                gstimenew = "11:15:00 AM";
+                                            }
+                                            if (item.GSTIME == "11:15:00 AM")
+                                            {
+                                                gstimenew = "11:30:00 AM";
+                                            }
+                                            if (item.GSTIME == "11:30:00 AM")
+                                            {
+                                                gstimenew = "11:45:00 AM";
+                                            }
+                                            if (item.GSTIME == "11:45:00 AM")
+                                            {
+                                                gstimenew = "12:00:00 PM";
+                                            }
+                                            if (item.GSTIME == "12:00:00 PM")
+                                            {
+                                                gstimenew = "12:15:00 PM";
+                                            }
+                                            if (item.GSTIME == "12:15:00 PM")
+                                            {
+                                                gstimenew = "12:30:00 PM";
+                                            }
+                                            if (item.GSTIME == "12:30:00 PM")
+                                            {
+                                                gstimenew = "12:45:00 PM";
+                                            }
+                                            if (item.GSTIME == "12:45:00 PM")
+                                            {
+                                                gstimenew = "01:00:00 PM";
+                                            }
+                                            if (item.GSTIME == "01:00:00 PM")
+                                            {
+                                                gstimenew = "01:15:00 PM";
+                                            }
+                                            if (item.GSTIME == "01:15:00 PM")
+                                            {
+                                                gstimenew = "01:30:00 PM";
+                                            }
+                                            if (item.GSTIME == "01:30:00 PM")
+                                            {
+                                                gstimenew = "01:45:00 PM";
+                                            }
+                                            if (item.GSTIME == "01:45:00 PM")
+                                            {
+                                                gstimenew = "02:00:00 PM";
+                                            }
+                                            if (item.GSTIME == "02:00:00 PM")
+                                            {
+                                                gstimenew = "02:15:00 PM";
+                                            }
+                                            if (item.GSTIME == "02:15:00 PM")
+                                            {
+                                                gstimenew = "02:30:00 PM";
+                                            }
+                                            if (item.GSTIME == "02:30:00 PM")
+                                            {
+                                                gstimenew = "02:45:00 PM";
+                                            }
+                                            if (item.GSTIME == "02:45:00 PM")
+                                            {
+                                                gstimenew = "03:00:00 PM";
+                                            }
+                                            if (item.GSTIME == "03:00:00 PM")
+                                            {
+                                                gstimenew = "03:15:00 PM";
+                                            }
+                                            if (item.GSTIME == "03:15:00 PM")
+                                            {
+                                                gstimenew = "03:30:00 PM";
+                                            }
+                                            if (item.GSTIME == "03:30:00 PM")
+                                            {
+                                                gstimenew = "03:45:00 PM";
+                                            }
+                                            if (item.GSTIME == "03:45:00 PM")
+                                            {
+                                                gstimenew = "04:00:00 PM";
+                                            }
+                                            if (item.GSTIME == "04:00:00 PM")
+                                            {
+                                                gstimenew = "04:15:00 PM";
+                                            }
+                                            if (item.GSTIME == "04:15:00 PM")
+                                            {
+                                                gstimenew = "04:30:00 PM";
+                                            }
+                                            if (item.GSTIME == "04:30:00 PM")
+                                            {
+                                                gstimenew = "04:45:00 PM";
+                                            }
+                                            if (item.GSTIME == "04:45:00 PM")
+                                            {
+                                                gstimenew = "05:00:00 PM";
+                                            }
+                                            if (item.GSTIME == "05:00:00 PM")
+                                            {
+                                                gstimenew = "05:15:00 PM";
+                                            }
+                                            if (item.GSTIME == "05:15:00 PM")
+                                            {
+                                                gstimenew = "05:30:00 PM";
+                                            }
+                                            if (item.GSTIME == "05:30:00 PM")
+                                            {
+                                                gstimenew = "05:45:00 PM";
+                                            }
+                                            if (item.GSTIME == "05:45:00 PM")
+                                            {
+                                                gstimenew = "06:00:00 PM";
+                                            }
+                                            if (item.GSTIME == "06:00:00 PM")
+                                            {
+                                                gstimenew = "06:15:00 PM";
+                                            }
+                                            if (item.GSTIME == "06:15:00 PM")
+                                            {
+                                                gstimenew = "06:30:00 PM";
+                                            }
+                                            if (item.GSTIME == "06:30:00 PM")
+                                            {
+                                                gstimenew = "06:45:00 PM";
+                                            }
+                                            if (item.GSTIME == "06:45:00 PM")
+                                            {
+                                                gstimenew = "07:00:00 PM";
+                                            } 
+                                            if (item.GSTIME == "07:00:00 PM")
+                                            {
+                                                gstimenew = "07:15:00 PM";
+                                            }
+                                            if (item.GSTIME == "07:15:00 PM")
+                                            {
+                                                gstimenew = "07:30:00 PM";
+                                            }
+                                            if (item.GSTIME == "07:30:00 PM")
+                                            {
+                                                gstimenew = "07:45:00 PM";
+                                            }
+                                            if (item.GSTIME == "07:45:00 PM")
+                                            {
+                                                gstimenew = "08:00:00 PM";
+                                            }
+                                            if (item.GSTIME == "08:00:00 PM")
+                                            {
+                                                gstimenew = "08:15:00 PM";
+                                            }
+                                            if (item.GSTIME == "08:15:00 PM")
+                                            {
+                                                gstimenew = "08:30:00 PM";
+                                            }
+                                            if (item.GSTIME == "08:30:00 PM")
+                                            {
+                                                gstimenew = "08:45:00 PM";
+                                            }
+                                            if (item.GSTIME == "08:45:00 PM")
+                                            {
+                                                gstimenew = "09:00:00 PM";
+                                            }
+                                            if (item.GSTIME == "09:00:00 PM")
+                                            {
+                                                gstimenew = "09:15:00 PM";
+                                            }
+                                            if (item.GSTIME == "09:15:00 PM")
+                                            {
+                                                gstimenew = "09:30:00 PM";
+                                            }
+                                            if (item.GSTIME == "09:30:00 PM")
+                                            {
+                                                gstimenew = "09:45:00 PM";
+                                            }
+                                            if (item.GSTIME == "09:45:00 PM")
+                                            {
+                                                gstimenew = "10:00:00 PM";
+                                            }
+                                            if (item.GSTIME == "10:00:00 PM")
+                                            {
+                                                gstimenew = "10:15:00 PM";
+                                            }
+                                            if (item.GSTIME == "10:15:00 PM")
+                                            {
+                                                gstimenew = "10:30:00 PM";
+                                            }
+                                            if (item.GSTIME == "10:30:00 PM")
+                                            {
+                                                gstimenew = "10:45:00 PM";
+                                            }
+                                            if (item.GSTIME == "10:45:00 PM")
+                                            {
+                                                gstimenew = "11:00:00 PM";
+                                            }
+                                            if (item.GSTIME == "11:00:00 PM")
+                                            {
+                                                gstimenew = "11:15:00 PM";
+                                            }
+                                            if (item.GSTIME == "11:15:00 PM")
+                                            {
+                                                gstimenew = "11:30:00 PM";
+                                            }
+                                            if (item.GSTIME == "11:30:00 PM")
+                                            {
+                                                gstimenew = "11:45:00 PM";
+                                            }
+                                            if (item.GSTIME == "11:45:00 PM")
+                                            {
+                                                gstimenew = "12:00:00 PM";
+                                            }
+                                            
+                                        <tr id="@trid" style="@clrcod">
+                                            <td class="text-center">@item.RID</td>
+                                            <td class="text-center">@item.GSDATE</td>
+                                            <td class="text-center">@item.RGTIME</td>
+                                            <td class="text-center">@gstimenew</td>
+                                            <td class="text-center">@item.RVAL</td>
+                                            <td class="text-center">@item.UUID</td>
+                                            <td class="text-center">
+                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="@dt">
+                                                    VIEW
+                                                </button>
+
+                                                <div class="modal fade" id="@mid" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLabel">Recipt Details</h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <strong>
+                                                                    <div class="row">
+                                                                        <div class="col-3">Yantra</div>
+                                                                        <div class="col-3">Quantity</div>
+                                                                        <div class="col-3">Price</div>
+                                                                        <div class="col-3">Total</div>
+                                                                    </div>
+                                                                </strong>
+                                                                @if (item.Y1 != "")
+                                                                {
+                                                                    var total = Convert.ToUInt32(item.Y1) * 11;
+                                                                    <div class="row">
+                                                                        <div class="col-3">Shree</div>
+                                                                        <div class="col-3">@item.Y1</div>
+                                                                        <div class="col-3">11</div>
+                                                                        <div class="col-3">@total</div>
+                                                                    </div>
+                                                                }
+
+                                                                @if (item.Y2 != "")
+                                                                {
+                                                                    var total = Convert.ToUInt32(item.Y2) * 11;
+                                                                    <div class="row">
+                                                                        <div class="col-3">Vashikaran</div>
+                                                                        <div class="col-3">@item.Y2</div>
+                                                                        <div class="col-3">11</div>
+                                                                        <div class="col-3">@total</div>
+                                                                    </div>
+                                                                }
+
+                                                                @if (item.Y3 != "")
+                                                                {
+                                                                    var total = Convert.ToUInt32(item.Y3) * 11;
+                                                                    <div class="row">
+                                                                        <div class="col-3">Sudarshan</div>
+                                                                        <div class="col-3">@item.Y3</div>
+                                                                        <div class="col-3">11</div>
+                                                                        <div class="col-3">@total</div>
+                                                                    </div>
+                                                                }
+
+                                                                @if (item.Y4 != "")
+                                                                {
+                                                                    var total = Convert.ToUInt32(item.Y4) * 11;
+                                                                    <div class="row">
+                                                                        <div class="col-3">Vastu</div>
+                                                                        <div class="col-3">@item.Y4</div>
+                                                                        <div class="col-3">11</div>
+                                                                        <div class="col-3">@total</div>
+                                                                    </div>
+                                                                }
+                                                                @if (item.Y5 != "")
+                                                                {
+                                                                    var total = Convert.ToUInt32(item.Y5) * 11;
+                                                                    <div class="row">
+                                                                        <div class="col-3">Planet</div>
+                                                                        <div class="col-3">@item.Y3</div>
+                                                                        <div class="col-3">11</div>
+                                                                        <div class="col-3">@total</div>
+                                                                    </div>
+                                                                }
+
+                                                                @if (item.Y6 != "")
+                                                                {
+                                                                    var total = Convert.ToUInt32(item.Y6) * 11;
+                                                                    <div class="row">
+                                                                        <div class="col-3">Love</div>
+                                                                        <div class="col-3">@item.Y6</div>
+                                                                        <div class="col-3">11</div>
+                                                                        <div class="col-3">@total</div>
+                                                                    </div>
+                                                                }
+
+                                                                @if (item.Y7 != "")
+                                                                {
+                                                                    var total = Convert.ToUInt32(item.Y7) * 11;
+                                                                    <div class="row">
+                                                                        <div class="col-3">Tara</div>
+                                                                        <div class="col-3">@item.Y7</div>
+                                                                        <div class="col-3">11</div>
+                                                                        <div class="col-3">@total</div>
+                                                                    </div>
+                                                                }
+
+                                                                @if (item.Y8 != "")
+                                                                {
+                                                                    var total = Convert.ToUInt32(item.Y8) * 11;
+                                                                    <div class="row">
+                                                                        <div class="col-3">Grah</div>
+                                                                        <div class="col-3">@item.Y8</div>
+                                                                        <div class="col-3">11</div>
+                                                                        <div class="col-3">@total</div>
+                                                                    </div>
+                                                                }
+
+                                                                @if (item.Y9 != "")
+                                                                {
+                                                                    var total = Convert.ToUInt32(item.Y9) * 11;
+                                                                    <div class="row">
+                                                                        <div class="col-3">Matsya</div>
+                                                                        <div class="col-3">@item.Y9</div>
+                                                                        <div class="col-3">11</div>
+                                                                        <div class="col-3">@total</div>
+                                                                    </div>
+                                                                }
+
+                                                                @if (item.Y10 != "")
+                                                                {
+                                                                    var total = Convert.ToUInt32(item.Y10) * 11;
+                                                                    <div class="row">
+                                                                        <div class="col-3">Meditation</div>
+                                                                        <div class="col-3">@item.Y10</div>
+                                                                        <div class="col-3">11</div>
+                                                                        <div class="col-3">@total</div>
+                                                                    </div>
+                                                                }
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>                                       
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+    <!-- End of Main Content -->
+
+    <!-- Footer -->
+    <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+                <span>Copyright &copy; Your Website 2020</span>
+            </div>
+        </div>
+    </footer>
+    <!-- End of Footer -->
+
+</div>
+<!-- End of Content Wrapper -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/json2/20160511/json2.min.js" integrity="sha512-uWk2ZXl3GVrq6DZsrL5dSg1S/F3MNQ9VaDFigqXOoKUnWG58UxOuJGfTrzh5KjpoBvPiFniL2PahU2HUTFMJXw==" crossorigin="anonymous"></script>
+
+<!-- Page level plugins -->
+    <script src="~/adminlayout/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/adminlayout/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="~/adminlayout/js/demo/datatables-demo.js"></script>

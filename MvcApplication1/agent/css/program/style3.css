@@ -1,0 +1,24 @@
+@media (max-width:1024px) {
+
+}
+
+/************ Main **************/
+@media (max-width: 960px) {
+.container{ width:800px; margin:0 auto; padding:0;}
+
+
+
+}
+@media (max-width: 767px) {
+html { -webkit-text-size-adjust:none;}
+.container{ width:93%; margin:0 auto; padding:0;}
+.prod_detail{ width:140px;}
+
+}
+
+/************ iphone **************/
+@media (max-width: 480px) {
+html { -webkit-text-size-adjust:none;}
+
+}
+

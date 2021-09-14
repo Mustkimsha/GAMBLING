@@ -1,0 +1,490 @@
+﻿@{
+    ViewBag.Title = "PROGRAM";
+    Layout = "~/Views/_Shared/adminlayout.cshtml";
+    ViewBag.unamess = Session["USERNAME"];
+}
+
+<!-- Sidebar -->
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+    <!-- Sidebar - Brand -->
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <div class="sidebar-brand-icon rotate-n-15">
+            <i class="fas fa-laugh-wink"></i>
+        </div>   
+    </a>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider my-0">
+
+    <!-- Nav Item - Dashboard -->
+    <li class="nav-item active">
+        <a class="nav-link" href="~/ADMIN/DASHBOARD">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Dashboard</span>
+        </a>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        Interface
+           
+    </div>
+
+    <!-- Nav Item - Charts -->
+    <li class="nav-item">
+        <a class="nav-link" href="~/ADMIN/PROGRAM">
+            <i class="fas fa-fw fa-gamepad"></i>
+            <span>Program</span></a>
+    </li>
+    <!-- Nav Item - Pages Collapse Menu -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+            aria-expanded="true" aria-controls="collapseTwo">
+            <i class="fas fa-fw fa-user"></i>
+            <span>FRENCHISE</span>
+        </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="~/ADMIN/CRATEFRENCHISE">CREATE FRENCHISE</a>
+                <a class="collapse-item" href="~/ADMIN/BALTRANSFERFRENCHISE">BALANCE TRANSFER</a>
+                <a class="collapse-item" href="~/ADMIN/VIEWFRENCHISEBAL">VIEW BALANCE FRENCHISE</a>
+            </div>
+        </div>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+</ul>
+<!-- End of Sidebar -->
+
+<!-- Content Wrapper -->
+<div id="content-wrapper" class="d-flex flex-column">
+
+    <!-- Main Content -->
+    <div id="content">
+
+        <!-- Topbar -->
+        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+            <!-- Sidebar Toggle (Topbar) -->
+            <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                <i class="fa fa-bars"></i>
+            </button>
+            <!-- Topbar Navbar -->
+            <ul class="navbar-nav ml-auto">
+                <div class="topbar-divider d-none d-sm-block"></div>
+
+                <!-- Nav Item - User Information -->
+                <li class="nav-item dropdown no-arrow">
+                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="mr-2 d-none d-lg-inline text-gray-600 small"><i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>@ViewBag.unamess</span>
+                    </a>
+                    <!-- Dropdown - User Information -->
+                    <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                        aria-labelledby="userDropdown">
+                        <a class="dropdown-item" href="#">
+                            <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                            Settings
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                            Logout
+                        </a>
+                    </div>
+                </li>
+
+            </ul>
+
+        </nav>
+        <!-- End of Topbar -->
+
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+
+            <!-- Page Heading -->
+            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                <h1 class="h3 mb-0 text-gray-800">PROGRAM</h1>
+            </div>
+            <div class="game_time headerTime row">
+                <input hidden class="clock" id="clock" />
+                <input hidden class="clock" id="Datetxtli" />
+                <p id="gsendtime" style="color: black"></p>
+                <p>&nbsp|&nbsp</p>
+                <p id="gstimer" style="color: red"></p>
+                <p>&nbsp|&nbsp</p>
+                <p id="datetoday" style="color: blue"></p>
+                <p>&nbsp|&nbsp</p>
+                <p id="timetoday" style="color: green"></p>
+                <script>
+                    function clock() {// We create a new Date object and assign it to a variable called "time".
+                        var timestamps;
+                        var time;
+                        $.get("https://vip.timezonedb.com/v2.1/get-time-zone?key=BSWYV6J8NXWD&format=json&by=zone&zone=Asia/Kolkata")
+                    .done(function (json) {
+                        console.log(json);
+                        timestamps = json.formatted;
+                        timeampm = new Date(timestamps);
+
+                        time = new Date(timestamps),
+                        time2 = new Date(timestamps),
+                        time3 = new Date(timestamps),
+
+                        // Access the "getHours" method on the Date object with the dot accessor.
+                            hours = time.getHours(),
+
+                        // Access the "getMinutes" method with the dot accessor.
+                            minutes = time.getMinutes(),
+
+
+                            seconds = time.getSeconds();
+
+
+
+                        var ampm = hours >= 12 ? 'PM' : 'AM';
+                        hours = hours % 12;
+                        hours = hours ? hours : 12; // the hour '0' should be '12'
+                        var temptime = harold(hours) + ":" + harold(minutes) + ":" + harold(seconds) + " " + ampm;
+                        document.getElementById("clock").value = harold(hours) + ":" + harold(minutes) + ":" + harold(seconds) + " " + ampm;
+
+                        var dt = time;
+                        var mm = dt.getMonth() + 1;
+                        mm = harold(mm);
+                        var dd = dt.getDate();
+                        var yyyy = dt.getFullYear();
+                        var format = dd + '-' + mm + '-' + yyyy;
+
+
+                        var Datetxt = time.toLocaleDateString();
+                        document.getElementById("Datetxtli").value = Datetxt;
+                        document.getElementById("datetoday").innerHTML = format;
+                        document.getElementById("timetoday").innerHTML = temptime;
+
+                        function harold(standIn) {
+                            if (standIn < 10) {
+                                standIn = '0' + standIn
+                            }
+                            return standIn;
+                        }
+
+                        
+                        $.post("/ADMIN/programtime", { todaytimenow: temptime, todaydatenow: Datetxt }, function (json) {
+                            document.getElementById("gsendtime").innerHTML = json.GPSENDTIME;
+                            document.getElementById("gstimer").innerHTML = json.GPSTIME;
+                            document.getElementById("tsy1").innerHTML = json.Y1;
+                            document.getElementById("tsy2").innerHTML = json.Y2;
+                            document.getElementById("tsy3").innerHTML = json.Y3;
+                            document.getElementById("tsy4").innerHTML = json.Y4;
+                            document.getElementById("tsy5").innerHTML = json.Y5;
+                            document.getElementById("tsy6").innerHTML = json.Y6;
+                            document.getElementById("tsy7").innerHTML = json.Y7;
+                            document.getElementById("tsy8").innerHTML = json.Y8;
+                            document.getElementById("tsy9").innerHTML = json.Y9;
+                            document.getElementById("tsy10").innerHTML = json.Y10;
+                            document.getElementById("LastResult").innerHTML = json.GPDATE;
+                            
+                            var v1 = json.Y1;
+                            var v2 = json.Y2;
+                            var v3 = json.Y3;
+                            var v4 = json.Y4;
+                            var v5 = json.Y5;
+                            var v6 = json.Y6;
+                            var v7 = json.Y7;
+                            var v8 = json.Y8;
+                            var v9 = json.Y9;
+                            var v10 = json.Y10;
+                            var winyt = json.GPSENDTIME;
+
+                            var total = parseInt(v1) + parseInt(v2) + parseInt(v3) + parseInt(v4) + parseInt(v5) + parseInt(v6) + parseInt(v7) + parseInt(v8) + parseInt(v9) + parseInt(v10);
+
+                            document.getElementById("totalsale").innerHTML = total;
+                            var time = json.GPSTIME;
+                            var hours = Number(time.match(/^(\d+)/)[1]);
+                            var minutes = Number(time.match(/:(\d+)/)[1]);
+                            var AMPM = time.match(/\s(.*)$/)[1];
+                            if (AMPM == "PM" && hours < 12) hours = hours + 12;
+                            if (AMPM == "AM" && hours == 12) hours = hours - 12;
+                            var sHours = hours.toString();
+                            var sMinutes = minutes.toString();
+                            if (hours < 10) sHours = "0" + sHours;
+                            if (minutes < 10) sMinutes = "0" + sMinutes;
+                            time2.setHours(sHours);
+                            time2.setMinutes(sMinutes);
+                            time2.setSeconds(00);
+                            t1 = time2.getTime();
+                            t2 = time3.getTime();
+                            timeleft = t1 - t2;
+
+                            var minutes = Math.floor((timeleft % (1000 * 60 * 60)) / (1000 * 60));
+                            var seconds = Math.floor((timeleft % (1000 * 60)) / 1000);
+                            document.getElementById("gstimer").innerHTML = harold(minutes) + ":" + harold(seconds);
+
+                            var autotime = harold(minutes) + ":" + harold(seconds);
+
+                            if (harold(minutes) == 00 && harold(seconds) <= 5) {
+                                $.post("/FRENCHISEdesk/winprocess", { todaydatestr: Datetxt, gsendtime: winyt }, function (json) {
+
+                                })
+                            }
+
+                            if (harold(minutes) == 00 && harold(seconds) <= 10)
+                            {
+                                var r1 = "q";
+                                var r2 = "s";
+                                var minval = Math.min(v1, v2, v3, v4, v5, v6, v7, v8, v9, v10);
+                                if (minval == v1) { r1 = "1"; r2 = "1"; }
+                                if (minval == v2) { r1 = "2"; r2 = "1"; }
+                                if (minval == v3) { r1 = "3"; r2 = "1"; }
+                                if (minval == v4) { r1 = "4"; r2 = "1"; }
+                                if (minval == v5) { r1 = "5"; r2 = "1"; }
+                                if (minval == v6) { r1 = "6"; r2 = "1"; }
+                                if (minval == v7) { r1 = "7"; r2 = "1"; }
+                                if (minval == v8) { r1 = "8"; r2 = "1"; }
+                                if (minval == v9) { r1 = "9"; r2 = "1"; }
+                                if (minval == v10) { r1 = "10"; r2 = "1"; }
+
+                                var a = document.getElementById("inputGroupSelect01").value;
+                                var b = document.getElementById("inputGroupSelect02").value;
+                                var c = document.getElementById("gsendtime").innerHTML;
+                                var d = document.getElementById("gstimer").innerHTML;
+                                var e = document.getElementById("datetoday").innerHTML;
+
+                                
+                                $.post("/ADMIN/autoopenresult", { yid: r1, jck: r2, gpsendtimevr: c, datetxt: $("#Datetxtli").val(), timerval: d }, function (json) {
+                                });
+                            }
+
+                        }
+                        )
+                    });
+
+                    }
+                    setInterval(clock, 1000);
+                </script>
+            </div>
+            
+            <!-- Content Row -->
+            <div class="row">
+                <div class="col">
+                    <strong><a>Total Sale :</a>
+                    <a id="totalsale"></a></strong>
+                </div>
+                <div class="col">
+                    <strong><a>Last Result :</a>
+                    <a id="LastResult"></a></strong>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-lg-3 mb-2">
+                    <div class="card bg-primary text-white shadow">
+                        <div class="card-body">
+                            <div class="yantra_info row">
+                                <div class="img-thumbnail col">
+                                    <img src="/agent/img/yantra_img/prod_1.jpg" alt="">
+                                </div>
+                                <div class="col">
+                                    <h4>Shree</h4>
+                                    <h5 id="tsy1">12345</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 mb-2">
+                    <div class="card bg-primary text-white shadow">
+                        <div class="card-body">
+                            <div class="yantra_info row">
+                                <div class="img-thumbnail col">
+                                    <img src="/agent/img/yantra_img/prod_2.jpg" alt="">
+                                </div>
+                                <div class="col">
+                                    <h4>Vashikaran</h4>
+                                    <h5 id="tsy2">12345</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 mb-2">
+                    <div class="card bg-primary text-white shadow">
+                        <div class="card-body">
+                            <div class="yantra_info row">
+                                <div class="img-thumbnail col">
+                                    <img src="/agent/img/yantra_img/prod_3.jpg" alt="">
+                                </div>
+                                <div class="col">
+                                    <h4>Sudarshan</h4>
+                                    <h5 id="tsy3">12345</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 mb-2">
+                    <div class="card bg-primary text-white shadow">
+                        <div class="card-body">
+                            <div class="yantra_info row">
+                                <div class="img-thumbnail col">
+                                    <img src="/agent/img/yantra_img/prod_4.jpg" alt="">
+                                </div>
+                                <div class="col">
+                                    <h4>Vastu</h4>
+                                    <h5 id="tsy4">12345</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 mb-2">
+                    <div class="card bg-primary text-white shadow">
+                        <div class="card-body">
+                            <div class="yantra_info row">
+                                <div class="img-thumbnail col">
+                                    <img src="/agent/img/yantra_img/prod_5.jpg" alt="">
+                                </div>
+                                <div class="col">
+                                    <h4>Planet</h4>
+                                    <h5 id="tsy5">12345</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 mb-2">
+                    <div class="card bg-primary text-white shadow">
+                        <div class="card-body">
+                            <div class="yantra_info row">
+                                <div class="img-thumbnail col">
+                                    <img src="/agent/img/yantra_img/prod_6.jpg" alt="">
+                                </div>
+                                <div class="col">
+                                    <h4>Love</h4>
+                                    <h5 id="tsy6">12345</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 mb-2">
+                    <div class="card bg-primary text-white shadow">
+                        <div class="card-body">
+                            <div class="yantra_info row">
+                                <div class="img-thumbnail col">
+                                    <img src="/agent/img/yantra_img/prod_7.jpg" alt="">
+                                </div>
+                                <div class="col">
+                                    <h4>Tara</h4>
+                                    <h5 id="tsy7">12345</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 mb-2">
+                    <div class="card bg-primary text-white shadow">
+                        <div class="card-body">
+                            <div class="yantra_info row">
+                                <div class="img-thumbnail col">
+                                    <img src="/agent/img/yantra_img/prod_8.jpg" alt="">
+                                </div>
+                                <div class="col">
+                                    <h4>Grah</h4>
+                                    <h5 id="tsy8">12345</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 mb-2">
+                    <div class="card bg-primary text-white shadow">
+                        <div class="card-body">
+                            <div class="yantra_info row">
+                                <div class="img-thumbnail col">
+                                    <img src="/agent/img/yantra_img/prod_9.jpg" alt="">
+                                </div>
+                                <div class="col">
+                                    <h4>Matsya</h4>
+                                    <h5 id="tsy9">12345</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 mb-2">
+                    <div class="card bg-primary text-white shadow">
+                        <div class="card-body">
+                            <div class="yantra_info row">
+                                <div class="img-thumbnail col">
+                                    <img src="/agent/img/yantra_img/prod_0.jpg" alt="">
+                                </div>
+                                <div class="col">
+                                    <h4>Meditation</h4>
+                                    <h5 id="tsy10">12345</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 mb-2 align-items-center">
+                    <select class="custom-select" id="inputGroupSelect01">
+                        <option value="1">Shree</option>
+                        <option value="2">Vashikaran</option>
+                        <option value="3">Sudarshan</option>
+                        <option value="4">Vastu</option>
+                        <option value="5">Planet</option>
+                        <option value="6">Love</option>
+                        <option value="7">Tara</option>
+                        <option value="8">Grah</option>
+                        <option value="9">Matsya</option>
+                        <option value="10">Meditation</option>
+                    </select>
+                    <select class="custom-select" id="inputGroupSelect02">
+                        <option value="1">NOT JACKPOT</option>
+                        <option value="2">JACKPOT</option>
+                    </select>
+                </div>
+                <div class="col-lg-3 mb-2 align-items-center">
+                    <button type="submit" id="OPENGPR" onclick="myFunctionOPENGPR()" class="btn btn-primary lg-3">OPEN</button>
+                </div>
+            </div>
+
+        </div>
+        <!-- /.container-fluid -->
+
+    </div>
+    <!-- End of Main Content -->
+
+    <!-- Footer -->
+    <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+                <span>Copyright &copy; Your Website 2020</span>
+            </div>
+        </div>
+    </footer>
+    <!-- End of Footer -->
+
+</div>
+<!-- End of Content Wrapper -->
+
+<script>
+    function myFunctionOPENGPR() {
+        
+        var a = document.getElementById("inputGroupSelect01").value;
+        var b = document.getElementById("inputGroupSelect02").value;
+        var c = document.getElementById("gsendtime").innerHTML;
+        var d = document.getElementById("gstimer").innerHTML;
+        var e = document.getElementById("datetoday").innerHTML;
+
+        $.post("/ADMIN/openresult", {yid: $("#inputGroupSelect01").val(), jck: $("#inputGroupSelect02").val(), gpsendtimevr: c, datetxt: $("#Datetxtli").val() , timerval:d}, function (json) {
+            alert(json);
+        });
+    }
+</script>

@@ -1,0 +1,360 @@
+﻿@using MvcApplication1.Models
+
+@{
+    Layout = null;
+    string str = Session["USERNAME"].ToString();
+    str = str.Substring(2);
+    ViewBag.unamess = "SK" + str;
+}
+
+@{  
+
+    IEnumerable<USERTBL> usrlist = ViewData["Usrlist"] as IEnumerable<USERTBL>;
+}
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BALANCE TRANSFER CLIENT</title>
+    <link rel="icon" type="image/png" href="~/Login_v1/images/icons/favicon.ico"/>
+    <link href="~/adminlayout/vendor/fontawesome-free/css/all.css" rel="stylesheet" />
+    <link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.5.1.js"></script>
+    <script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+    
+   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4-4.1.1/dt-1.10.24/datatables.min.css"/>
+ 
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs4-4.1.1/dt-1.10.24/datatables.min.js"></script>
+
+    <script>
+        $(function () {
+
+            $("#datepicker").datepicker({
+                dateFormat: "dd-mm-yy",
+                showOn: "both",
+                buttonImageOnly: false,
+                buttonText: "<i class=\"fa fa-calendar\" aria-hidden=\"true\"> Select Date</i>"
+            });
+
+
+            $("#datepicker").datepicker("setDate", new Date());
+        });
+    </script>
+    <script>
+        function myFunctioncreate1() {
+            if ($("#UUNAME").val() == "" || $("#USERNAME").val() == "" || $("#PASSWORD").val() == "" || $("#CONTACTNO").val() == "") {
+                alert("please enter details");
+            }
+            else {
+                $.post("/FRENCHISEdesk/CRATECLIENTadd", { UUNAMEtxt: $("#UUNAME").val(), USERNAMEtxt: $("#USERNAME").val(), PASSWORDtxt: $("#PASSWORD").val(), CONTACTNOtxt: $("#CONTACTNO").val() }, function (response) {
+                    var row = $("#example tr:last-child");
+                    location.reload();
+                    $("#FUNAME").val() = "";
+                    $("#FRENCHISEPASSWORD").val() = "";
+                    $("#USERNAME").val() = "";
+                    $("#CONTACTNO").val() = "";
+                    alert("data inserted succesfully");
+                }
+                )
+            }
+        }
+    </script>
+</head>
+<body style="background-color: gray">
+    <div class="container">
+        <div class="row text-center" hidden>
+            <div class="col-lg">
+                <label for="datepicker">DATE</label>
+                <input type="text" id="datepicker">
+                <input hidden class="clock" id="clock" />
+                <input hidden type="text" id="txt1" />
+                <script>
+                    function txt1fx() {
+                        location.href = "/FRENCHISEdesk/DASHBOARD";
+                    }
+                </script>
+                <button class="ui-button" onclick="txt1fx()" type="submit"><strong>Search</strong></button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg">
+                <h4 class="font-weight-bold text-white">BALANCE TRANSFER CLIENT ( @ViewBag.unamess )</h4>
+                <button class="ui-button" onclick="txt1fx()" type="submit"><strong>Exit</strong></button>
+                <hr style="height: 1px; color: white; background-color: white;">
+            </div>
+        </div>
+        <div>
+            <div>
+                <div class="form-row">
+                    <div class="col-sm-2 col-form-label font-weight-bold">
+                        <label for="inputGroupSelect01">Select CLient ID :</label>
+                    </div>
+                    <div class="col-sm-3">
+                        <select class="form-control" id="inputGroupSelect01">
+                            @foreach (USERTBL item in usrlist)
+                            {
+                                string fuidvar = Convert.ToString(Session["USERID"]);
+                                var ifuid = item.FUID;
+                                if (ifuid == fuidvar)
+                                {
+                                <option value="@item.UID">@item.UUNAME (@item.UID)</option>
+                            }
+
+                        }
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-sm-2 col-form-label font-weight-bold">
+                        <label for="inputGroupSelect02">Select Tranc Type :</label>
+                    </div>
+                    <div class="col-sm-3">
+                        <select class="form-control" id="inputGroupSelect02">
+                            <option value="1">DEBIT</option>
+                            <option value="2">CREDIT</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-sm-2 col-form-label font-weight-bold">
+                        <label for="TXNAMT">Enter Amount :</label>
+                    </div>
+                    <div class="col-sm-3">
+                        <input type="number" class="form-control" id="TXNAMT" placeholder="AMOUNT" required="required">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-sm-2 col-form-label font-weight-bold">
+                        </div>
+                    <div class="col-sm-4">
+                    <button type="submit" id="TRANSFER" onclick="myFunctionTRANSFER()" class="btn btn-primary">TRANSFER</button>
+                    </div>
+                </div>
+            </div>
+            <hr style="height: 1px; color: white; background-color: white;">
+        </div>
+        <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-sm-4">
+                    <span><strong>From Date : </strong>
+                        <input name="min" id="min" type="text"></span>
+                </div>
+                <div class="col-sm-4">
+                    <span><strong>To Date : </strong>
+                        <input name="max" id="max" type="text"></span>
+                </div>
+            </div>
+        </div>
+        <div class="card-body table-responsive table-bordered">
+                <table id="example" class="display table table-sm" style="width: 100%">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th class="text-center">TXN ID</th>
+                            <th class="text-center">USER ID</th>
+                            <th class="text-center">DEBIT</th>
+                            <th class="text-center">CREDIT</th>
+                            <th class="text-center">DATE</th>
+                            <th class="text-center">TIME</th>
+                        </tr>
+                    </thead>
+                    <tbody class="font-weight-bold">
+                        @foreach (FUTXN item in Model as IEnumerable<MvcApplication1.Models.FUTXN>)
+                        {
+                            var fuidvar = Convert.ToUInt32(Session["USERID"]);
+                            var ifuid = item.FUID;
+                            if (ifuid == fuidvar)
+                            {
+                            <tr>
+                                <td class="text-center">@item.TXNID</td>
+                                <td class="text-center">@item.UID</td>
+                                <td class="text-center text-danger">@item.DEBIT</td>
+                                <td class="text-center text-success">@item.CREDIT</td>
+                                <td class="text-center">@item.TXNDATE</td>
+                                <td class="text-center">@item.TXNTIME</td>
+                            </tr>
+                                        
+                                    }
+                                }
+                    </tbody>
+                    <tfoot class="thead-dark">
+                        <tr>
+                            <th class="text-center">TXN ID</th>
+                            <th class="text-center">USER ID</th>
+                            <th class="text-center">DEBIT</th>
+                            <th class="text-center">CREDIT</th>
+                            <th class="text-center">DATE</th>
+                            <th class="text-center">TIME</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function myFunctionTRANSFER() {
+            var timestamps;
+            var time;
+
+            $.get("https://vip.timezonedb.com/v2.1/get-time-zone?key=BSWYV6J8NXWD&format=json&by=zone&zone=Asia/Kolkata")
+                .done(function (json) {
+                    console.log(json);
+                    timestamps = json.formatted;
+                    timeampm = new Date(timestamps);
+
+                    time = new Date(timestamps),
+
+                    // Access the "getHours" method on the Date object with the dot accessor.
+                        hours = time.getHours(),
+
+                    // Access the "getMinutes" method with the dot accessor.
+                        minutes = time.getMinutes(),
+
+
+                        seconds = time.getSeconds();
+                    var ampm = hours >= 12 ? 'PM' : 'AM';
+                    hours = hours % 12;
+                    hours = hours ? hours : 12; // the hour '0' should be '12'
+                    var Timetxt = harold(hours) + ":" + harold(minutes) + ":" + harold(seconds) + " " + ampm;
+
+                    var dt = time;
+                    var mm = dt.getMonth() + 1;
+                    mm = harold(mm);
+                    var dd = dt.getDate();
+                    var yyyy = dt.getFullYear();
+                    var format = harold(dd) + '-' + mm + '-' + yyyy;
+
+
+                    var Datetxt = time.toLocaleDateString();
+
+                    function harold(standIn) {
+                        if (standIn < 10) {
+                            standIn = '0' + standIn
+                        }
+                        return standIn;
+                    }
+                    var x = document.getElementById("inputGroupSelect01").value;
+                    var y = document.getElementById("inputGroupSelect02").value;
+                    var z = document.getElementById("TXNAMT").value;
+
+                    if (x == "") {
+                        alert("please SELECT FRENCHISE ID");
+                    }
+                    else {
+                        if (y == "") {
+                            alert("please SELECT TRANSCTION TYPE");
+                        }
+                        else {
+                            if (z == "") {
+                                alert("please ENTER THE AMOUNT");
+                            }
+                            else {
+                                $.post("/FRENCHISEdesk/BALTRANSFERCLIENTtransfer", { uid: $("#inputGroupSelect01").val(), tt: $("#inputGroupSelect02").val(), txnaamt: $("#TXNAMT").val(), timetxt: Timetxt, datetxt: Datetxt }, function (response) {
+                                    var row = $("#exampledttbl tr:last-child");
+                                    location.reload();
+                                    $("#inputGroupSelect01").val() = "1";
+                                    $("#inputGroupSelect02").val() = "1";
+                                    $("#TXNAMT").val() = "0";
+                                    alert("data inserted succesfully");
+                                }
+                                )
+                            }
+                        }
+                    }
+                });
+        }
+</script>
+
+    <script>
+        function clock() {// We create a new Date object and assign it to a variable called "time".
+            var timestamps;
+            var time;
+            $.get("https://vip.timezonedb.com/v2.1/get-time-zone?key=BSWYV6J8NXWD&format=json&by=zone&zone=Asia/Kolkata")
+        .done(function (json) {
+            console.log(json);
+            timestamps = json.formatted;
+            timeampm = new Date(timestamps);
+
+            time = new Date(timestamps),
+
+            // Access the "getHours" method on the Date object with the dot accessor.
+                hours = time.getHours(),
+
+            // Access the "getMinutes" method with the dot accessor.
+                minutes = time.getMinutes(),
+
+
+            years = timestamps.substring(0, 4);
+            months = timestamps.substring(5, 7);
+            day = timestamps.substring(8, 10);
+            dates = day + "/" + months + "/" + years;
+            dates2 = months + "/" + day + "/" + years;
+
+            document.getElementById("txt1").value = dates;
+            seconds = time.getSeconds();
+            var ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12;
+            hours = hours ? hours : 12; // the hour '0' should be '12'
+
+            document.getElementById("clock").value = harold(hours) + ":" + harold(minutes) + ":" + harold(seconds) + " " + ampm;
+            function harold(standIn) {
+                if (standIn < 10) {
+                    standIn = '0' + standIn
+                }
+                return standIn;
+            }
+        });
+
+        }
+        setInterval(clock, 1000);
+    </script>
+<script>
+    $(document).ready(function () {
+        $('#example').DataTable({ "order": [] });
+        $("#example_filter").css("display", "none");  // hiding global search box
+        $.fn.dataTable.ext.search.push(
+    function (settings, data, dataIndex) {
+        var min = $('#min').datepicker("getDate");
+        var max = $('#max').datepicker("getDate");
+        var startDate = new Date(data[4]);
+        if (min == null && max == null) { return true; }
+        if (min == null && startDate <= max) { return true; }
+        if (max == null && startDate >= min) { return true; }
+        if (startDate <= max && startDate >= min) { return true; }
+        return false;
+    }
+    );
+
+
+        $("#min").datepicker({
+            dateFormat: "dd-mm-yy",
+            showOn: "both",
+            buttonImageOnly: false,
+            buttonText: "<i class=\"fa fa-calendar\" aria-hidden=\"true\"></i>",
+            onSelect: function () { table.draw(); }, changeMonth: true, changeYear: true
+        });
+        $("#max").datepicker({
+            dateFormat: "dd-mm-yy",
+            showOn: "both",
+            buttonImageOnly: false,
+            buttonText: "<i class=\"fa fa-calendar\" aria-hidden=\"true\"></i>",
+            onSelect: function () { table.draw(); }, changeMonth: true, changeYear: true
+        });
+        var table = $('#example').DataTable();
+
+        // Event listener to the two range filtering inputs to redraw on input
+        $('#min, #max').change(function () {
+            table.draw();
+        });
+    });
+
+
+
+    </script>
+
+</body>
+</html>
